@@ -1,6 +1,8 @@
 package softeer2nd;
 
 import org.junit.jupiter.api.*;
+import softeer2nd.chess.domain.piece.Pawn;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class PawnTest {
