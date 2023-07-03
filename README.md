@@ -3,11 +3,11 @@
 
 # 기능 요구사항
 ## Step 1 - 폰 생성
-- [ ] PawnTest
-  - [ ] PawnTest 클래스 생성
-  - [ ] create 테스트 메소드 작성
-- [ ] Pawn
-  - [ ] Pawn 클래스 구현
-- [ ] Refactor
-  - [ ] 중복된 부분 제거
-  - [ ] verifyPawn 메소드 구현
+- [x] PawnTest
+  - [x] PawnTest 클래스 생성
+  - [x] create 테스트 메소드 작성
+- [x] Pawn
+  - [x] Pawn 클래스 구현
+- [x] Refactor
+  - [x] 중복된 부분 제거
+  - [x] verifyPawn 메소드 구현
