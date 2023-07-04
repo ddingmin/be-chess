@@ -7,11 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PawnTest {
     final String WHITE = "white";
     final String BLACK = "black";
     final ArrayList<String> validColors = new ArrayList<>(List.of("white", "black"));
+
+    @Test
+    public void create_기본생성자() throws Exception {
+        Pawn pawn = new Pawn();
+        assertEquals("white", pawn.getColor());
+    }
 
     @Test
     @DisplayName("입력한 색의 폰이 생성되어야 한다")
@@ -21,7 +28,7 @@ public class PawnTest {
     }
 
     @Test
-    @DisplayName("옳바른 색이 입력되어야 한다.")
+    @DisplayName("올바른 색이 입력되어야 한다.")
     public void createCorrectColor(){
         verifyColor(WHITE);
         verifyColor(BLACK);
