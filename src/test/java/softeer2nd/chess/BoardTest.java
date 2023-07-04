@@ -1,6 +1,7 @@
 package softeer2nd.chess;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Pawn;
 
@@ -8,12 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
     Board board;
+
     @BeforeEach
     void setUp() {
         board = new Board();
     }
 
     @Test
+    @DisplayName("보드 클래스를 테스트 한다. size(), findPawn() 메서드를 테스트한다.")
     public void create() throws Exception {
         Pawn white = new Pawn(Pawn.WHITE_COLOR);
         board.add(white);
@@ -27,7 +30,8 @@ public class BoardTest {
     }
 
     @Test
-    void create_폰_이외의_객체추가() {
+    @DisplayName("보드에 폰 이외의 객체는 추가할 수 없다.")
+    void create_다른객체() {
 //        board.add(new Integer(7));
     }
 
