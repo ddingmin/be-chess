@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisplayName("폰 테스트")
 public class PawnTest {
     @Test
     @DisplayName("기본 생성자로 생성한 경우 white 폰이 생성되어야 한다")
