@@ -9,6 +9,7 @@ import java.util.List;
 public class Board {
     private HashMap<Point, Pawn> board;
     private List<Point> points;
+    private List<Pawn> pieces;
     public static final int WHITE_PAWN_ROW = 7;
     public static final int BLACK_PAWN_ROW = 2;
     public static final int START_POINT = 1;
@@ -19,6 +20,7 @@ public class Board {
     public Board() {
         board = new HashMap<>();
         points = new ArrayList<>();
+        pieces = new ArrayList<>();
         for (int i = START_POINT; i < MAX_POINT; i++) {
             for (int j = START_POINT; j < MAX_POINT; j++) {
                 Point point = new Point(i, j);
@@ -29,6 +31,7 @@ public class Board {
 
     public void add(Pawn pawn, int x, int y) {
         this.board.put(getPoint(x, y), pawn);
+        this.pieces.add(pawn);
     }
 
     public int size() {
@@ -36,7 +39,7 @@ public class Board {
     }
 
     public Pawn findPawn(int index) {
-        return board.get(index);
+        return pieces.get(index);
     }
 
     public void initialize() {
