@@ -17,6 +17,10 @@ public class GameController {
 
     Scanner sc = new Scanner(System.in);
 
+    public GameController() {
+        board = new Board();
+    }
+
     public void main() {
         isGaming = true;
 
@@ -27,11 +31,11 @@ public class GameController {
                 System.out.println(GAME_COMMAND_ERROR);
                 command = sc.nextLine();
             }
-            if (command.toUpperCase().equals(START)) {
+            if (command.equalsIgnoreCase(START)) {
                 startGame();
                 System.out.println(GAME_END_MESSAGE);
             }
-            if (command.toUpperCase().equals(END)) {
+            if (command.equalsIgnoreCase(END)) {
                 System.out.println(GAME_EXIT_MESSAGE);
                 break;
             }
@@ -40,7 +44,6 @@ public class GameController {
 
     private void startGame() {
         System.out.println(GAME_START_MESSAGE);
-        board = new Board();
         board.initialize();
         System.out.println(SHOW_BOARD_MESSAGE);
         System.out.println(board.getBoardResult());
@@ -56,7 +59,7 @@ public class GameController {
                 return false;
             }
         }
-        if (command.toUpperCase().equals(START) || command.toUpperCase().equals(END)) {
+        if (command.equalsIgnoreCase(START) || command.equalsIgnoreCase(END)) {
             return true;
         }
         return false;

@@ -56,12 +56,12 @@ public class Board {
     }
 
     public void initializePawnRow() {
-        for (int i = 0; i < points.size(); i++) {
-            if (points.get(i).getX() == WHITE_PAWN_ROW) {
-                board.put(points.get(i), new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+        for (Point point : points) {
+            if (point.getX() == WHITE_PAWN_ROW) {
+                board.put(point, new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
             }
-            if (points.get(i).getX() == BLACK_PAWN_ROW) {
-                board.put(points.get(i), new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+            if (point.getX() == BLACK_PAWN_ROW) {
+                board.put(point, new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
             }
         }
     }
@@ -91,10 +91,10 @@ public class Board {
 
     private String getRowResult(int rowNumber) {
         StringBuilder stringBuilder = new StringBuilder("");
-        for (int i = 0; i < points.size(); i++) {
-            if (points.get(i).getX() == rowNumber && board.get(points.get(i)) != null) {
-                stringBuilder.append(board.get(points.get(i)).getRepresentation());
-            } else if (points.get(i).getX() == rowNumber && board.get(points.get(i)) == null) {
+        for (Point point : points) {
+            if (point.getX() == rowNumber && board.get(point) != null) {
+                stringBuilder.append(board.get(point).getRepresentation());
+            } else if (point.getX() == rowNumber && board.get(point) == null) {
                 stringBuilder.append(DOT);
             }
         }
@@ -102,9 +102,9 @@ public class Board {
     }
 
     public Point getPoint(int x, int y) {
-        for (int i = 0; i < points.size(); i++) {
-            if (points.get(i).getX() == x && points.get(i).getY() == y) {
-                return points.get(i);
+        for (Point point : points) {
+            if (point.getX() == x && point.getY() == y) {
+                return point;
             }
         }
         throw new IllegalArgumentException("좌표값이 올바르지 않습니다.");
