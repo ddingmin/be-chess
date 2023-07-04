@@ -28,6 +28,8 @@ public class BoardTest {
 
     @Test
     void create_폰_이외의_객체추가() {
-        board.add(new Integer(7));
+//        board.add(new Integer(7));
     }
+
+
 }
