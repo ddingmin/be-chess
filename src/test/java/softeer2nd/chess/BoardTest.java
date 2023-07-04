@@ -8,7 +8,7 @@ import softeer2nd.chess.pieces.Pawn;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("체스판 테스트")
-public class BoardTest {
+class BoardTest {
     Board board;
 
     @BeforeEach
@@ -18,7 +18,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("보드 클래스를 테스트 한다. size(), findPawn() 메서드를 테스트한다.")
-    public void create() throws Exception {
+    void create() throws Exception {
         Pawn white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
         verifyAddPawn(white, 1, 0);
 
