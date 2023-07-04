@@ -1,8 +1,8 @@
 package softeer2nd.chess.domain.piece;
 
 public class Pawn {
-    static final String WHITE = "white";
-    static final String BLACK = "black";
+    static final String WHITE_COLOR = "white";
+    static final String BLACK_COLOR = "black";
 
 
     private final String color;
@@ -12,7 +12,7 @@ public class Pawn {
     }
 
     public Pawn() {
-        this.color = WHITE;
+        this.color = WHITE_COLOR;
     }
 
     public String getColor() {
