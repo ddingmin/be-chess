@@ -63,6 +63,6 @@ class BoardTest {
     void verifyAddPawn(Pawn pawn, int size, int index, int x, int y) {
         addPawn(board, pawn, x, y);
         assertEquals(size, board.size());
-        assertEquals(index, board.findPawn(index));
+        assertEquals(pawn, board.findPawn(index));
     }
 }
