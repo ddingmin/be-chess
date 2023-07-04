@@ -3,9 +3,10 @@ package softeer2nd.chess;
 import softeer2nd.chess.pieces.Pawn;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
-    public ArrayList<Pawn> board;
+    private List<Pawn> board;
 
     public Board() {
         board = new ArrayList<>();
@@ -15,7 +16,7 @@ public class Board {
         this.board.add(pawn);
     }
 
-    public Integer size() {
+    public int size() {
         return board.size();
     }
 
