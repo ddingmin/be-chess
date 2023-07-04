@@ -20,12 +20,10 @@ class BoardTest {
     @DisplayName("보드 클래스를 테스트 한다. size(), findPawn() 메서드를 테스트한다.")
     void create() throws Exception {
         Pawn white = new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
-        Point pointWhite = new Point(1, 8);
-        verifyAddPawn(white, 1, 0, pointWhite);
+        verifyAddPawn(white, 1, 0, 1, 8);
 
         Pawn black = new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
-        Point pointBlack = new Point(2, 7);
-        verifyAddPawn(black, 2, 1, pointBlack);
+        verifyAddPawn(black, 2, 1, 2, 7);
     }
 
     @Test
@@ -54,17 +52,17 @@ class BoardTest {
                 "pppppppp\n" +
                 "........\n";
         board.initialize();
-        assertEquals(board.toString(), correctPrint);
-        System.out.println(board.toString());
+        assertEquals(board.getBoardResult(), correctPrint);
+        System.out.println(board.getBoardResult());
     }
 
-    void addPawn(Board board, Pawn pawn, Point point) {
-        board.add(pawn, point);
+    void addPawn(Board board, Pawn pawn, int x, int y) {
+        board.add(pawn, x, y);
     }
 
-    void verifyAddPawn(Pawn pawn, int size, int index, Point point) {
-        addPawn(board, pawn, point);
+    void verifyAddPawn(Pawn pawn, int size, int index, int x, int y) {
+        addPawn(board, pawn, x, y);
         assertEquals(size, board.size());
-        assertEquals(pawn, board.findPawn(index));
+        assertEquals(index, board.findPawn(index));
     }
 }
