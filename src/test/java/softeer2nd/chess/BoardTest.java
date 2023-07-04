@@ -20,4 +20,11 @@ public class BoardTest {
         assertEquals(2, board.size());
         assertEquals(black, board.findPawn(1));
     }
+
+    @Test
+    void create_폰_이외의_객체추가() {
+        Board board = new Board();
+
+        board.add(new Integer(7));
+    }
 }
