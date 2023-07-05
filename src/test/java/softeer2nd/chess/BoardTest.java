@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static softeer2nd.chess.utils.PieceUtils.*;
 
 @DisplayName("체스판 테스트")
 class BoardTest {
@@ -19,10 +20,10 @@ class BoardTest {
     @Test
     @DisplayName("보드 클래스를 테스트 한다. size(), findPawn() 메서드를 테스트한다.")
     void create() throws Exception {
-        Piece white = new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION);
+        Piece white = new Piece(WHITE, WHITE_PAWN);
         verifyAddPawn(white, 1, 0, 1, 8);
 
-        Piece black = new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION);
+        Piece black = new Piece(BLACK, BLACK_PAWN);
         verifyAddPawn(black, 2, 1, 2, 7);
     }
 

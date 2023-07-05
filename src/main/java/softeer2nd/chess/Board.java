@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static softeer2nd.chess.utils.PieceUtils.*;
+
 public class Board {
     private HashMap<Point, Piece> board;
     private List<Point> points;
@@ -15,7 +17,6 @@ public class Board {
     public static final int BLACK_PAWN_ROW = 2;
     public static final int START_POINT = 1;
     public static final int MAX_POINT = 9;
-    public static final String NEW_LINE = "\n";
     public static final String DOT = ".";
 
     public Board() {
@@ -59,10 +60,10 @@ public class Board {
     public void initializePawnRow() {
         for (Point point : points) {
             if (point.getX() == WHITE_PAWN_ROW) {
-                board.put(point, new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION));
+                board.put(point, new Piece(WHITE, WHITE_PAWN));
             }
             if (point.getX() == BLACK_PAWN_ROW) {
-                board.put(point, new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION));
+                board.put(point, new Piece(BLACK, BLACK_PAWN));
             }
         }
     }
