@@ -46,7 +46,7 @@ public class GameController {
         System.out.println(GAME_START_MESSAGE);
         board.initialize();
         System.out.println(SHOW_BOARD_MESSAGE);
-        System.out.println(board.getBoardResult());
+        System.out.println(board.showBoard());
         //TODO: 게임 로직을 추가로 구현해야 한다.
     }
 
