@@ -21,11 +21,12 @@ public class BoardTest {
     @Test
     @DisplayName("기물들은 주어진 좌표에 생성된다.")
     void add() {
-        String point = "13";
+        String point = "a3";
 
-        board.add(point, Piece.createBlackKing());
+        board.put(Piece.createBlackKing(), point);
 
         assertEquals(1, board.pieceCount());
+        assertEquals(1, board.pieceCount(Piece.Type.KING, Piece.Color.BLACK));
     }
 
     @Test
@@ -44,5 +45,24 @@ public class BoardTest {
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
                 board.showBoard());
+    }
+
+    @Test
+    @DisplayName("체스판의 기물과 해당하는 색의 개수를 받아야 한다.")
+    void getPieceCount() {
+        board.initialize();
+
+        assertEquals(8, board.pieceCount(Piece.Type.PAWN, Piece.Color.WHITE));
+        assertEquals(8, board.pieceCount(Piece.Type.PAWN, Piece.Color.BLACK));
+        assertEquals(1, board.pieceCount(Piece.Type.KING, Piece.Color.WHITE));
+        assertEquals(1, board.pieceCount(Piece.Type.KING, Piece.Color.BLACK));
+        assertEquals(1, board.pieceCount(Piece.Type.QUEEN, Piece.Color.WHITE));
+        assertEquals(1, board.pieceCount(Piece.Type.QUEEN, Piece.Color.BLACK));
+        assertEquals(2, board.pieceCount(Piece.Type.ROOK, Piece.Color.WHITE));
+        assertEquals(2, board.pieceCount(Piece.Type.ROOK, Piece.Color.BLACK));
+        assertEquals(2, board.pieceCount(Piece.Type.BISHOP, Piece.Color.WHITE));
+        assertEquals(2, board.pieceCount(Piece.Type.BISHOP, Piece.Color.BLACK));
+        assertEquals(2, board.pieceCount(Piece.Type.KNIGHT, Piece.Color.WHITE));
+        assertEquals(2, board.pieceCount(Piece.Type.KNIGHT, Piece.Color.BLACK));
     }
 }

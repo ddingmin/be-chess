@@ -8,7 +8,7 @@
   - [x] create 테스트 메소드 작성
 - [x] Pawn
   - [x] Pawn 클래스 구현
-  - [ ] 폰 출력 구현 
+  - [X] 폰 출력 구현 
 - [x] Refactor
   - [x] 중복된 부분 제거
   - [x] verifyPawn 메소드 구현
