@@ -2,70 +2,46 @@ package softeer2nd.chess.board;
 
 import softeer2nd.chess.pieces.Piece;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 public class Board {
-    public static final char EMPTY_REPRESENTATION = '.';
-    public static final int WHITE_PAWN_ROW = 2;
-    public static final int BLACK_PAWN_ROW = 7;
-    public static final int WHITE_SPECIAL_ROW = 1;
-    public static final int BLACK_SPECIAL_ROW = 8;
-    public static final int START_POINT = 1;
-    public static final int MAX_POINT = 9;
-    private HashMap<String, Piece> board;
+    public static final int WHITE_PAWN_ROW = 1;
+    public static final int BLACK_PAWN_ROW = 6;
+    public static final int WHITE_SPECIAL_ROW = 0;
+    public static final int BLACK_SPECIAL_ROW = 7;
+    public static final int START_POINT = 0;
+    public static final int MAX_POINT = 8;
+
+    private List<Rank> board;
 
     public Board() {
-        board = new HashMap<>();
+        initializeEmpty();
     }
 
     public void initialize() {
-        board = new HashMap<>();
-        initializeKing();
-        initializeQueen();
-        initializeRook();
-        initializeBishop();
-        initializeKnight();
+        initializeEmpty();
+        initializeSpecialPiece();
         initializePawn();
     }
 
-    private void initializePawn() {
-        for (int y = START_POINT; y < MAX_POINT; y++) {
-            add(convertPoint(WHITE_PAWN_ROW, y), Piece.createWhitePawn());
-            add(convertPoint(BLACK_PAWN_ROW, y), Piece.createBlackPawn());
+    private void initializeEmpty() {
+        board = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            board.add(Rank.createEmpty());
         }
     }
 
-    private void initializeKing() {
-        add(convertPoint(WHITE_SPECIAL_ROW, 5), Piece.createWhiteKing());
-        add(convertPoint(BLACK_SPECIAL_ROW, 5), Piece.createBlackKing());
+    private void initializeSpecialPiece() {
+        board.set(WHITE_SPECIAL_ROW, Rank.createWhiteSpecialPiece());
+        board.set(BLACK_SPECIAL_ROW, Rank.createBlackSpecialPiece());
     }
 
-    private void initializeQueen() {
-        add(convertPoint(WHITE_SPECIAL_ROW, 4), Piece.createWhiteQueen());
-        add(convertPoint(BLACK_SPECIAL_ROW, 4), Piece.createBlackQueen());
-    }
-
-    private void initializeRook() {
-        add(convertPoint(WHITE_SPECIAL_ROW, 1), Piece.createWhiteRook());
-        add(convertPoint(WHITE_SPECIAL_ROW, 8), Piece.createWhiteRook());
-        add(convertPoint(BLACK_SPECIAL_ROW, 1), Piece.createBlackRook());
-        add(convertPoint(BLACK_SPECIAL_ROW, 8), Piece.createBlackRook());
-    }
-
-    private void initializeBishop() {
-        add(convertPoint(WHITE_SPECIAL_ROW, 3), Piece.createWhiteBishop());
-        add(convertPoint(WHITE_SPECIAL_ROW, 6), Piece.createWhiteBishop());
-        add(convertPoint(BLACK_SPECIAL_ROW, 3), Piece.createBlackBishop());
-        add(convertPoint(BLACK_SPECIAL_ROW, 6), Piece.createBlackBishop());
-    }
-
-    private void initializeKnight() {
-        add(convertPoint(WHITE_SPECIAL_ROW, 2), Piece.createWhiteKnight());
-        add(convertPoint(WHITE_SPECIAL_ROW, 7), Piece.createWhiteKnight());
-        add(convertPoint(BLACK_SPECIAL_ROW, 2), Piece.createBlackKnight());
-        add(convertPoint(BLACK_SPECIAL_ROW, 7), Piece.createBlackKnight());
+    private void initializePawn() {
+        board.set(WHITE_PAWN_ROW, Rank.createWhitePawn());
+        board.set(BLACK_PAWN_ROW, Rank.createBlackPawn());
     }
 
     private String convertPoint(int x, int y) {
@@ -86,14 +62,6 @@ public class Board {
         return true;
     }
 
-    private int convertRow(String point) {
-        return Character.getNumericValue(point.charAt(0));
-    }
-
-    private int convertColumn(String point) {
-        return Character.getNumericValue(point.charAt(1));
-    }
-
     public String showBoard() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -112,22 +80,33 @@ public class Board {
         return appendNewLine(stringBuilder.toString());
     }
 
-    private char getRepresentation(int x, int y) {
-        if (board.containsKey(convertPoint(x, y))) {
-            return board.get(convertPoint(x, y)).getRepresentation();
-        }
-        return EMPTY_REPRESENTATION;
+    private char getRepresentation(int rank, int file) {
+        return board.get(rank).getPiece(file).getRepresentation();
     }
 
-    public void add(String point, Piece piece) {
-        this.board.put(point, piece);
+    public void put(Piece piece, int rank, int file) {
+        board.get(rank).putPiece(piece, file);
+    }
+
+    public void put(Piece piece, String point) {
+        int rank = getPointToRank(point);
+        int file = getPointToFile(point);
+        board.get(rank).putPiece(piece, file);
+    }
+
+    private int getPointToRank(String point) {
+        return (point.charAt(0) - 'a');
+    }
+
+    private int getPointToFile(String point) {
+        return Character.getNumericValue(point.charAt(1) - 1);
     }
 
     public int pieceCount() {
         int pieceCount = 0;
-        for (int x = START_POINT; x < MAX_POINT; x++) {
-            for (int y = START_POINT; y < MAX_POINT; y++) {
-                if (board.containsKey(convertPoint(x, y))) {
+        for (int rank = START_POINT; rank < MAX_POINT; rank++) {
+            for (int file = START_POINT; file < MAX_POINT; file++) {
+                if (!board.get(rank).getPiece(file).getType().equals(Piece.Type.NO_PIECE)) {
                     pieceCount++;
                 }
             }
