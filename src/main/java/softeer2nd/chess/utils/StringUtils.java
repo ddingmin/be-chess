@@ -6,8 +6,8 @@ public class StringUtils {
     private StringUtils() {
     }
 
-    public static final String appendNewLine(String string) {
-        StringBuilder sb = new StringBuilder();
-        return sb.append(string).append(NEWLINE).toString();
+    public static String appendNewLine(String string) {
+        StringBuilder stringBuilder = new StringBuilder();
+        return stringBuilder.append(string).append(NEWLINE).toString();
     }
 }
