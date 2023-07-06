@@ -88,18 +88,18 @@ public class Board {
         board.get(rank).putPiece(piece, file);
     }
 
-    public void put(Piece piece, String point) {
-        int rank = getPointToRank(point);
-        int file = getPointToFile(point);
+    public void put(Piece piece, String position) {
+        int rank = getPositionToRank(position);
+        int file = getPositionToFile(position);
         board.get(rank).putPiece(piece, file);
     }
 
-    private int getPointToRank(String point) {
-        return (point.charAt(0) - 'a');
+    private int getPositionToFile(String position) {
+        return (position.charAt(0) - 'a');
     }
 
-    private int getPointToFile(String point) {
-        return Character.getNumericValue(point.charAt(1) - 1);
+    private int getPositionToRank(String position) {
+        return Character.getNumericValue(position.charAt(1) - 1);
     }
 
     public int pieceCount() {
