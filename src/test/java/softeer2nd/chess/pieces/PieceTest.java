@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PieceTest {
     @Test
     @DisplayName("입력한 색의 기물이 생성되어야 한다, 기물과 색에 따라 올바른 출력을 해야 한다.")
-    void create_piece() {
+    void createPiece() {
         verifyPiece(Piece.createBlackPawn(), Piece.Color.BLACK, Piece.Type.PAWN.getBlackRepresentation());
         verifyPiece(Piece.createWhitePawn(), Piece.Color.WHITE, Piece.Type.PAWN.getWhiteRepresentation());
         verifyPiece(Piece.createWhiteKing(), Piece.Color.WHITE, Piece.Type.KING.getWhiteRepresentation());
@@ -18,6 +18,12 @@ class PieceTest {
         verifyPiece(Piece.createWhiteBishop(), Piece.Color.WHITE, Piece.Type.BISHOP.getWhiteRepresentation());
         verifyPiece(Piece.createWhiteRook(), Piece.Color.WHITE, Piece.Type.ROOK.getWhiteRepresentation());
         verifyPiece(Piece.createWhiteKnight(), Piece.Color.WHITE, Piece.Type.KNIGHT.getWhiteRepresentation());
+    }
+
+    @Test
+    @DisplayName("기물이 존재하지 않는 기물도 생성되어야 한다.")
+    void createBlankPiece() {
+        verifyPiece(Piece.createBlank(), Piece.Color.NOCOLOR, Piece.Type.NO_PIECE.getBlackRepresentation());
     }
 
     @Test
