@@ -104,9 +104,24 @@ public class Board {
 
     public int pieceCount() {
         int pieceCount = 0;
+
         for (int rank = START_POINT; rank < MAX_POINT; rank++) {
             for (int file = START_POINT; file < MAX_POINT; file++) {
                 if (!board.get(rank).getPiece(file).getType().equals(Piece.Type.NO_PIECE)) {
+                    pieceCount++;
+                }
+            }
+        }
+        return pieceCount;
+    }
+
+    public int pieceCount(Piece.Type type, Piece.Color color) {
+        int pieceCount = 0;
+
+        for (int rank = START_POINT; rank < MAX_POINT; rank++) {
+            for (int file = START_POINT; file < MAX_POINT; file++) {
+                if (board.get(rank).getPiece(file).getType().equals(type)
+                        && board.get(rank).getPiece(file).getColor().equals(color)) {
                     pieceCount++;
                 }
             }
