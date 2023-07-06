@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static softeer2nd.chess.utils.PieceUtils.*;
 
 @DisplayName("기물 테스트")
@@ -18,6 +19,16 @@ class PieceTest {
         verifyPiece(Piece.createWhiteBishop(), WHITE, WHITE_BISHOP_REPRESENTATION);
         verifyPiece(Piece.createWhiteRook(), WHITE, WHITE_ROOK_REPRESENTATION);
         verifyPiece(Piece.createWhiteKnight(), WHITE, WHITE_KNIGHT_REPRESENTATION);
+    }
+
+    @Test
+    @DisplayName("검은색 말과 흰색말을 구분해야 한다.")
+    void check_color() {
+        Piece whitePawn = Piece.createWhitePawn();
+        Piece blackPawn = Piece.createBlackPawn();
+
+        assertTrue(whitePawn.isWhite());
+        assertTrue(blackPawn.isBlack());
     }
 
     private void verifyPiece(final Piece piece, final String color, final char representation) {
