@@ -1,20 +1,22 @@
 package softeer2nd.chess;
 
-import softeer2nd.chess.pieces.Pawn;
+import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static softeer2nd.chess.utils.PieceUtils.*;
+
 public class Board {
-    private HashMap<Point, Pawn> board;
+    private HashMap<Point, Piece> board;
     private List<Point> points;
-    private List<Pawn> pieces;
+    private List<Piece> pieces;
     public static final int WHITE_PAWN_ROW = 7;
     public static final int BLACK_PAWN_ROW = 2;
     public static final int START_POINT = 1;
     public static final int MAX_POINT = 9;
-    public static final String NEW_LINE = "\n";
     public static final String DOT = ".";
 
     public Board() {
@@ -29,16 +31,16 @@ public class Board {
         }
     }
 
-    public void add(Pawn pawn, int x, int y) {
-        this.board.put(getPoint(x, y), pawn);
-        this.pieces.add(pawn);
+    public void add(Piece piece, int x, int y) {
+        this.board.put(getPoint(x, y), piece);
+        this.pieces.add(piece);
     }
 
     public int size() {
         return board.size();
     }
 
-    public Pawn findPawn(int index) {
+    public Piece findPawn(int index) {
         return pieces.get(index);
     }
 
@@ -58,27 +60,28 @@ public class Board {
     public void initializePawnRow() {
         for (Point point : points) {
             if (point.getX() == WHITE_PAWN_ROW) {
-                board.put(point, new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION));
+                board.put(point, new Piece(WHITE, WHITE_PAWN));
             }
             if (point.getX() == BLACK_PAWN_ROW) {
-                board.put(point, new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION));
+                board.put(point, new Piece(BLACK, BLACK_PAWN));
             }
         }
     }
 
     public String getBoardResult() {
         StringBuilder stringBuilder = new StringBuilder("");
+        String result = "";
         for (int i = START_POINT; i < MAX_POINT; i++) {
             for (int j = START_POINT; j < MAX_POINT; j++) {
                 if (board.get(getPoint(i, j)) == null) {
-                    stringBuilder.append(DOT);
+                    result = stringBuilder.append(DOT).toString();
                 } else if (board.get(getPoint(i, j)) != null) {
-                    stringBuilder.append(board.get(getPoint(i, j)).getRepresentation());
+                    result = stringBuilder.append(board.get(getPoint(i, j)).getRepresentation()).toString();
                 }
             }
-            stringBuilder.append(NEW_LINE);
+            stringBuilder = new StringBuilder(StringUtils.appendNewLine(result));
         }
-        return stringBuilder.toString();
+        return result;
     }
 
     public String getWhitePawnsResult() {
