@@ -31,6 +31,10 @@ public class Piece {
         this.type = type;
     }
 
+    public static Piece createBlank() {
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
+    }
+
     public static Piece createWhiteKing() {
         return new Piece(Color.WHITE, Type.KING);
     }
