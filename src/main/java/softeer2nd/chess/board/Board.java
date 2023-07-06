@@ -128,4 +128,10 @@ public class Board {
         }
         return pieceCount;
     }
+
+    public Piece findPiece(String position) {
+        int rank = getPositionToRank(position);
+        int file = getPositionToFile(position);
+        return board.get(rank).getPiece(file);
+    }
 }
