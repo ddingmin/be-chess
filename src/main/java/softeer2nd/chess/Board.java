@@ -5,6 +5,7 @@ import softeer2nd.chess.pieces.Piece;
 import java.util.HashMap;
 
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
+
 public class Board {
     public static final char EMPTY_REPRESENTATION = '.';
     public static final int WHITE_PAWN_ROW = 2;

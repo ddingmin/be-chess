@@ -114,6 +114,7 @@ public class Piece {
     public char getRepresentation() {
         return representation;
     }
+
     public String getName() {
         return name;
     }
