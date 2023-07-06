@@ -68,8 +68,21 @@ public class Board {
     }
 
     private String convertPoint(int x, int y) {
-        StringBuilder stringBuilder = new StringBuilder();
-        return stringBuilder.append(x).append(y).toString();
+        if (isCorrectPoint(x, y)) {
+            StringBuilder stringBuilder = new StringBuilder();
+            return stringBuilder.append(x).append(y).toString();
+        }
+        throw new IllegalArgumentException("올바른 좌표값이 아닙니다.");
+    }
+
+    private boolean isCorrectPoint(int x, int y) {
+        if (x < START_POINT || x >= MAX_POINT) {
+            return false;
+        }
+        if (y < START_POINT || y >= MAX_POINT) {
+            return false;
+        }
+        return true;
     }
 
     private int convertRow(String point) {
