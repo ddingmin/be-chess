@@ -22,11 +22,15 @@ public class BoardTest {
     @DisplayName("기물들은 주어진 좌표에 생성된다.")
     void add() {
         String point = "a3";
+        Piece BlackKing = Piece.createBlackKing();
 
-        board.put(Piece.createBlackKing(), point);
+        board.put(BlackKing, point);
 
         assertEquals(1, board.pieceCount());
         assertEquals(1, board.pieceCount(Piece.Type.KING, Piece.Color.BLACK));
+        assertEquals(Piece.createBlackKing().getColor(), board.findPiece(point).getColor());
+        assertEquals(Piece.createBlackKing().getType(), board.findPiece(point).getType());
+        assertEquals(BlackKing, board.findPiece(point));
     }
 
     @Test
