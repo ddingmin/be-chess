@@ -1,5 +1,7 @@
 package softeer2nd.chess.pieces;
 
+import java.util.Objects;
+
 public class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
@@ -112,5 +114,18 @@ public class Piece {
 
     public boolean isBlack() {
         return color.equals(Color.BLACK);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return color == piece.color && type == piece.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
     }
 }
