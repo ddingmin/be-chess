@@ -21,16 +21,22 @@ public class BoardTest {
     @Test
     @DisplayName("기물들은 주어진 좌표에 생성된다.")
     void add() {
-        String point = "a3";
-        Piece BlackKing = Piece.createBlackKing();
+        String whiteRookPosition = "e1";
+        String whiteKingPosition = "f1";
+        String whitePawnPosition1 = "g2";
+        String whitePawnPosition2 = "f3";
 
-        board.put(BlackKing, point);
+        board.put(Piece.createWhiteRook(), whiteRookPosition);
+        board.put(Piece.createWhiteKing(), whiteKingPosition);
+        board.put(Piece.createWhitePawn(), whitePawnPosition1);
+        board.put(Piece.createWhitePawn(), whitePawnPosition2);
 
-        assertEquals(1, board.pieceCount());
-        assertEquals(1, board.pieceCount(Piece.Type.KING, Piece.Color.BLACK));
-        assertEquals(Piece.createBlackKing().getColor(), board.findPiece(point).getColor());
-        assertEquals(Piece.createBlackKing().getType(), board.findPiece(point).getType());
-        assertEquals(BlackKing, board.findPiece(point));
+        assertEquals(Piece.createWhiteRook(), board.findPiece(whiteRookPosition));
+        assertEquals(Piece.createWhiteKing(), board.findPiece(whiteKingPosition));
+        assertEquals(Piece.createWhitePawn(), board.findPiece(whitePawnPosition1));
+        assertEquals(Piece.createWhitePawn(), board.findPiece(whitePawnPosition2));
+
+        System.out.println(board.showBoard());
     }
 
     @Test
@@ -38,7 +44,7 @@ public class BoardTest {
     public void create() throws Exception {
         board.initialize();
 
-        assertEquals(32, board.pieceCount());
+        assertEquals(32, board.pieceAllCount());
 
         String blankRank = appendNewLine("........");
 
@@ -68,6 +74,9 @@ public class BoardTest {
         assertEquals(2, board.pieceCount(Piece.Type.BISHOP, Piece.Color.BLACK));
         assertEquals(2, board.pieceCount(Piece.Type.KNIGHT, Piece.Color.WHITE));
         assertEquals(2, board.pieceCount(Piece.Type.KNIGHT, Piece.Color.BLACK));
+
+        assertEquals(16, board.pieceCount(Piece.Color.WHITE));
+        assertEquals(16, board.pieceCount(Piece.Color.BLACK));
     }
 
     @Test
