@@ -101,4 +101,17 @@ public class BoardTest {
         assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
         assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
+
+    @Test
+    @DisplayName("주어진 좌표로 임의의 기물을 추가한다.")
+    public void put() throws Exception {
+        board.initializeEmpty();
+
+        String position = "b5";
+        Piece piece = Piece.createBlackRook();
+        board.put(piece, position);
+
+        assertEquals(piece, board.findPiece(position));
+        System.out.println(board.showBoard());
+    }
 }
