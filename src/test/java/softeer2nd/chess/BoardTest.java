@@ -12,6 +12,7 @@ import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 @DisplayName("체스판 테스트")
 public class BoardTest {
     private Board board;
+    static final String BLANK_RANK = appendNewLine("........");
 
     @BeforeEach
     public void setup() {
@@ -40,18 +41,29 @@ public class BoardTest {
     }
 
     @Test
+    @DisplayName("빈 체스판을 생성한다.")
+    void createEmpty() {
+        board.initializeEmpty();
+
+        assertEquals(0, board.pieceAllCount());
+
+        assertEquals(
+                BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK +
+                        BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK,
+                board.showBoard());
+    }
+
+    @Test
     @DisplayName("체스판의 초기 기물 수는 32개, 각 위치의 올바르게 초기화 되어야 한다.")
     public void create() throws Exception {
         board.initialize();
 
         assertEquals(32, board.pieceAllCount());
 
-        String blankRank = appendNewLine("........");
-
         assertEquals(
                 appendNewLine("RNBQKBNR") +
                         appendNewLine("PPPPPPPP") +
-                        blankRank + blankRank + blankRank + blankRank +
+                        BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK +
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
                 board.showBoard());
