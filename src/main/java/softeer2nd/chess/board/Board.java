@@ -27,7 +27,7 @@ public class Board {
         initializePawn();
     }
 
-    private void initializeEmpty() {
+    public void initializeEmpty() {
         board = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             board.add(Rank.createEmpty());
