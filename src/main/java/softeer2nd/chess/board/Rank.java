@@ -4,6 +4,8 @@ import softeer2nd.chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Rank {
     private static final int RANK_SIZE = 8;
@@ -14,26 +16,17 @@ public class Rank {
     }
 
     public static Rank createEmpty() {
-        List<Piece> pieces = new ArrayList<>();
-        for (int i = 0; i < RANK_SIZE; i++) {
-            pieces.add(Piece.createBlank());
-        }
+        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.createBlank()).collect(Collectors.toList());
         return new Rank(pieces);
     }
 
     public static Rank createWhitePawns() {
-        List<Piece> pieces = new ArrayList<>();
-        for (int i = 0; i < RANK_SIZE; i++) {
-            pieces.add(Piece.createWhitePawn());
-        }
+        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.createWhitePawn()).collect(Collectors.toList());
         return new Rank(pieces);
     }
 
     public static Rank createBlackPawns() {
-        List<Piece> pieces = new ArrayList<>();
-        for (int i = 0; i < RANK_SIZE; i++) {
-            pieces.add(Piece.createBlackPawn());
-        }
+        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.createBlackPawn()).collect(Collectors.toList());
         return new Rank(pieces);
     }
 
