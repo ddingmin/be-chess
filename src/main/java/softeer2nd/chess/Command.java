@@ -5,8 +5,8 @@ import softeer2nd.chess.board.Board;
 import java.util.Scanner;
 
 public class Command {
-    public static final String START_COMMAND_MESSAGE = "다음 입력을 사용해 주세요. (시작: start, 종료 end)";
-    public static final String GAME_COMMAND_ERROR = "잘못된 입력입니다. 다시 입력해주세요. (시작: start, 종료 end)";
+    public static final String START_COMMAND_MESSAGE = "다음 입력을 사용해 주세요. (시작: start, 종료: end)";
+    public static final String GAME_COMMAND_ERROR = "잘못된 입력입니다. 다시 입력해주세요. (시작: start, 종료: end)";
     public static final String GAME_START_MESSAGE = "체스 게임을 시작합니다.";
     public static final String GAME_END_MESSAGE = "체스 게임을 종료합니다.";
     public static final String GAME_EXIT_MESSAGE = "체스 게임 프로그램을 종료합니다.";

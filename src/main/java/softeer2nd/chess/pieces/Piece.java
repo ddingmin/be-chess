@@ -16,9 +16,9 @@ public class Piece {
         KING('k', 0.0),
         NO_PIECE('.', 0.0);
 
-        private char representation;
+        private final char representation;
 
-        private double defaultPoint;
+        private final double defaultPoint;
 
         private Type(char representation, double defaultPoint) {
             this.representation = representation;
