@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Rank {
     private static final int RANK_SIZE = 8;
-    private List<Piece> rank;
+    private final List<Piece> rank;
 
     private Rank(List<Piece> pieces) {
         this.rank = pieces;
@@ -21,7 +21,7 @@ public class Rank {
         return new Rank(pieces);
     }
 
-    public static Rank createWhitePawn() {
+    public static Rank createWhitePawns() {
         List<Piece> pieces = new ArrayList<>();
         for (int i = 0; i < RANK_SIZE; i++) {
             pieces.add(Piece.createWhitePawn());
@@ -29,7 +29,7 @@ public class Rank {
         return new Rank(pieces);
     }
 
-    public static Rank createBlackPawn() {
+    public static Rank createBlackPawns() {
         List<Piece> pieces = new ArrayList<>();
         for (int i = 0; i < RANK_SIZE; i++) {
             pieces.add(Piece.createBlackPawn());
@@ -37,7 +37,7 @@ public class Rank {
         return new Rank(pieces);
     }
 
-    public static Rank createWhiteSpecialPiece() {
+    public static Rank createWhiteSpecialPieces() {
         List<Piece> pieces = new ArrayList<>();
         pieces.add(Piece.createWhiteRook());
         pieces.add(Piece.createWhiteKnight());
@@ -50,7 +50,7 @@ public class Rank {
         return new Rank(pieces);
     }
 
-    public static Rank createBlackSpecialPiece() {
+    public static Rank createBlackSpecialPieces() {
         List<Piece> pieces = new ArrayList<>();
         pieces.add(Piece.createBlackRook());
         pieces.add(Piece.createBlackKnight());
@@ -69,5 +69,12 @@ public class Rank {
 
     public void putPiece(Piece piece, int file) {
         rank.set(file, piece);
+    }
+
+    @Override
+    public String toString() {
+        return rank.stream()
+                .map(piece -> Character.toString(piece.getRepresentation()))
+                .reduce("", (str1, str2) -> str1 + str2);
     }
 }
