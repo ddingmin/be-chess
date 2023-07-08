@@ -1,9 +1,8 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.board.Board;
 import softeer2nd.chess.pieces.Piece;
 
 import java.util.*;
