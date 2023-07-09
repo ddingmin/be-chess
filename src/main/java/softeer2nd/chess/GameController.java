@@ -1,21 +1,22 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.board.Position;
 
 import static softeer2nd.chess.Command.*;
 
 public class GameController {
-    private Board board;
-    private boolean isGaming;
+    private final Board board;
+    private boolean isRunning;
 
     public GameController() {
         board = new Board();
     }
 
     public void main() {
-        isGaming = true;
+        isRunning = true;
         String command;
-        while (isGaming) {
+        while (isRunning) {
             command = readRun();
             if (command.equals(START)) {
                 startGame();
@@ -28,10 +29,28 @@ public class GameController {
     }
 
     private void startGame() {
+        boolean isGaming = true;
         showStartGameMessage();
         board.initialize();
         showGameBoard(board);
-        //TODO: 게임 로직을 추가로 구현해야 한다.
+
+        String command;
+        while (isGaming) {
+            command = readGame();
+            if (command.equals(END)) {
+                isGaming = false;
+            }
+            if (command.startsWith(MOVE)) {
+                String[] inputs = command.split(" ");
+                try {
+                    board.move(new Position(inputs[1]), new Position(inputs[2]));
+                    showGameBoard(board);
+                }
+                catch (IllegalArgumentException exception) {
+                    System.out.println(POSITION_INPUT_ERROR);
+                }
+            }
+        }
     }
 
     private void endGame() {
@@ -40,6 +59,6 @@ public class GameController {
 
     private void exitGame() {
         showExitGameMessage();
-        isGaming = false;
+        isRunning = false;
     }
 }
