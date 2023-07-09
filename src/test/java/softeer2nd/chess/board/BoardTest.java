@@ -5,12 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
 
-import java.util.*;
+import javax.swing.text.Position;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static softeer2nd.chess.pieces.Piece.*;
-import static softeer2nd.chess.pieces.Piece.Color.*;
+import static softeer2nd.chess.pieces.Piece.Color.BLACK;
+import static softeer2nd.chess.pieces.Piece.Color.WHITE;
 import static softeer2nd.chess.pieces.Piece.Type.*;
+import static softeer2nd.chess.pieces.Piece.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 @DisplayName("체스판 테스트")
@@ -159,7 +161,27 @@ public class BoardTest {
         assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), board.sortDescByPiecePoint(BLACK));
     }
 
+    @Test
+    @DisplayName("주어진 좌표에 있는 기물들이 주어진 좌표로 이동한다.")
+    public void move() throws Exception {
+        // given
+        board.initialize();
+        Position sourcePosition = new Position("b2");
+        Position targetPosition = new Position("b3");
+
+        // when
+        movePiece(sourcePosition, targetPosition);
+
+        // then
+        assertEquals(createBlank(new Position(sourcePosition)), board.findPiece(sourcePosition));
+        assertEquals(createWhitePawn(new Position(targetPosition)), board.findPiece(targetPosition));
+    }
+
     private void addPiece(String position, Piece piece) {
         board.put(piece, position);
+    }
+
+    private void movePiece(Position sourcePosition, Position targetPosition) {
+        board.move(sourcePosition, targetPosition);
     }
 }
