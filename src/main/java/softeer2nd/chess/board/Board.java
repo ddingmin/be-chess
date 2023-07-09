@@ -147,6 +147,11 @@ public class Board {
                 .getPiece(file);
     }
 
+    public Piece findPiece(Position position) {
+        return board.get(position.getRank())
+                .getPiece(position.getFile());
+    }
+
     public double calculatePoint(Piece.Color color) {
         double point = 0.0;
         point += calculateKing(color);
@@ -218,5 +223,10 @@ public class Board {
         pointByPiece.put(Piece.Type.BISHOP, calculateBishop(color));
         pointByPiece.put(Piece.Type.KNIGHT, calculateKnight(color));
         pointByPiece.put(Piece.Type.PAWN, calculatePawn(color));
+    }
+
+    public void move(Position sourcePosition, Position targetPosition) {
+        put(findPiece(sourcePosition),targetPosition.getRank(), targetPosition.getFile());
+        put(Piece.createBlank(), sourcePosition.getRank(), sourcePosition.getFile());
     }
 }

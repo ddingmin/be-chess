@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
 
-import javax.swing.text.Position;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -173,8 +172,8 @@ public class BoardTest {
         movePiece(sourcePosition, targetPosition);
 
         // then
-        assertEquals(createBlank(new Position(sourcePosition)), board.findPiece(sourcePosition));
-        assertEquals(createWhitePawn(new Position(targetPosition)), board.findPiece(targetPosition));
+        assertEquals(createBlank(), board.findPiece(sourcePosition));
+        assertEquals(createWhitePawn(), board.findPiece(targetPosition));
     }
 
     private void addPiece(String position, Piece piece) {
