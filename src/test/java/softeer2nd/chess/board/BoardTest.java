@@ -20,17 +20,17 @@ public class BoardTest {
     static final String BLANK_RANK = appendNewLine("........");
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         board = new Board();
     }
 
     @Test
     @DisplayName("기물들은 주어진 좌표에 생성된다.")
     void add() {
-        String whiteRookPosition = "e1";
-        String whiteKingPosition = "f1";
-        String whitePawnPosition1 = "g2";
-        String whitePawnPosition2 = "f3";
+        Position whiteRookPosition = new Position("e1");
+        Position whiteKingPosition = new Position("f1");
+        Position whitePawnPosition1 = new Position("g2");
+        Position whitePawnPosition2 = new Position("f3");
 
         board.put(createWhiteRook(), whiteRookPosition);
         board.put(createWhiteKing(), whiteKingPosition);
@@ -53,7 +53,7 @@ public class BoardTest {
         assertEquals(
                 BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK +
                         BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK,
-                board.showBoard());
+                board.getBoard());
     }
 
     @Test
@@ -69,7 +69,7 @@ public class BoardTest {
                         BLANK_RANK + BLANK_RANK + BLANK_RANK + BLANK_RANK +
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
-                board.showBoard());
+                board.getBoard());
     }
 
     @Test
@@ -77,18 +77,18 @@ public class BoardTest {
     void getPieceCount() {
         board.initialize();
 
-        assertEquals(8, board.pieceCount(PAWN, WHITE));
-        assertEquals(8, board.pieceCount(PAWN, BLACK));
-        assertEquals(1, board.pieceCount(KING, WHITE));
-        assertEquals(1, board.pieceCount(KING, BLACK));
-        assertEquals(1, board.pieceCount(QUEEN, WHITE));
-        assertEquals(1, board.pieceCount(QUEEN, BLACK));
-        assertEquals(2, board.pieceCount(ROOK, WHITE));
-        assertEquals(2, board.pieceCount(ROOK, BLACK));
-        assertEquals(2, board.pieceCount(BISHOP, WHITE));
-        assertEquals(2, board.pieceCount(BISHOP, BLACK));
-        assertEquals(2, board.pieceCount(KNIGHT, WHITE));
-        assertEquals(2, board.pieceCount(KNIGHT, BLACK));
+        assertEquals(1, board.pieceCount(createWhiteKing()));
+        assertEquals(1, board.pieceCount(createBlackKing()));
+        assertEquals(1, board.pieceCount(createWhiteQueen()));
+        assertEquals(1, board.pieceCount(createBlackQueen()));
+        assertEquals(2, board.pieceCount(createWhiteBishop()));
+        assertEquals(2, board.pieceCount(createBlackBishop()));
+        assertEquals(2, board.pieceCount(createWhiteRook()));
+        assertEquals(2, board.pieceCount(createBlackRook()));
+        assertEquals(2, board.pieceCount(createWhiteKnight()));
+        assertEquals(2, board.pieceCount(createBlackKnight()));
+        assertEquals(8, board.pieceCount(createWhitePawn()));
+        assertEquals(8, board.pieceCount(createBlackPawn()));
 
         assertEquals(16, board.pieceCount(WHITE));
         assertEquals(16, board.pieceCount(BLACK));
@@ -99,10 +99,10 @@ public class BoardTest {
     public void findPiece() throws Exception {
         board.initialize();
 
-        assertEquals(createBlackRook(), board.findPiece("a8"));
-        assertEquals(createBlackRook(), board.findPiece("h8"));
-        assertEquals(createWhiteRook(), board.findPiece("a1"));
-        assertEquals(createWhiteRook(), board.findPiece("h1"));
+        assertEquals(createBlackRook(), board.findPiece(new Position("a8")));
+        assertEquals(createBlackRook(), board.findPiece(new Position("h8")));
+        assertEquals(createWhiteRook(), board.findPiece(new Position("a1")));
+        assertEquals(createWhiteRook(), board.findPiece(new Position("h1")));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class BoardTest {
     public void put() throws Exception {
         board.initializeEmpty();
 
-        String position = "b5";
+        Position position = new Position("b5");
         Piece piece = createBlackRook();
         board.put(piece, position);
 
@@ -122,17 +122,17 @@ public class BoardTest {
     public void calculatePoint() throws Exception {
         board.initializeEmpty();
 
-        addPiece("b6", createBlackPawn());
-        addPiece("e6", createBlackQueen());
-        addPiece("b8", createBlackKing());
-        addPiece("c8", createBlackRook());
+        addPiece(new Position("b6"), createBlackPawn());
+        addPiece(new Position("e6"), createBlackQueen());
+        addPiece(new Position("b8"), createBlackKing());
+        addPiece(new Position("c8"), createBlackRook());
 
-        addPiece("f2", createWhitePawn());
-        addPiece("g2", createWhitePawn());
-        addPiece("g3", createWhitePawn());
-        addPiece("g4", createWhitePawn());
-        addPiece("e1", createWhiteRook());
-        addPiece("f1", createWhiteKing());
+        addPiece(new Position("f2"), createWhitePawn());
+        addPiece(new Position("g2"), createWhitePawn());
+        addPiece(new Position("g3"), createWhitePawn());
+        addPiece(new Position("g4"), createWhitePawn());
+        addPiece(new Position("e1"), createWhiteRook());
+        addPiece(new Position("f1"), createWhiteKing());
 
         assertEquals(15.0, board.calculatePoint(BLACK), 0.01);
         assertEquals(7.5, board.calculatePoint(WHITE), 0.01);
@@ -144,43 +144,23 @@ public class BoardTest {
         // when
         board.initializeEmpty();
 
-        addPiece("b1", createWhitePawn());
-        addPiece("b2", createWhitePawn());
-        addPiece("b3", createWhitePawn());
-        addPiece("b4", createWhitePawn());
-        addPiece("c5", createWhiteKnight());
+        addPiece(new Position("b1"), createWhitePawn());
+        addPiece(new Position("b2"), createWhitePawn());
+        addPiece(new Position("b3"), createWhitePawn());
+        addPiece(new Position("b4"), createWhitePawn());
+        addPiece(new Position("c5"), createWhiteKnight());
 
-        addPiece("b6", createBlackPawn());
-        addPiece("e6", createBlackQueen());
-        addPiece("b8", createBlackKing());
-        addPiece("c8", createBlackRook());
+        addPiece(new Position("b6"), createBlackPawn());
+        addPiece(new Position("e6"), createBlackQueen());
+        addPiece(new Position("b8"), createBlackKing());
+        addPiece(new Position("c8"), createBlackRook());
 
         // then
         assertEquals(Arrays.asList(BISHOP, KING, QUEEN, ROOK, PAWN, KNIGHT), board.sortAscByPiecePoint(WHITE));
         assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), board.sortDescByPiecePoint(BLACK));
     }
 
-    @Test
-    @DisplayName("주어진 좌표에 있는 기물들이 주어진 좌표로 이동한다.")
-    public void move() throws Exception {
-        // given
-        board.initialize();
-        Position sourcePosition = new Position("b2");
-        Position targetPosition = new Position("b3");
-
-        // when
-        movePiece(sourcePosition, targetPosition);
-
-        // then
-        assertEquals(createBlank(), board.findPiece(sourcePosition));
-        assertEquals(createWhitePawn(), board.findPiece(targetPosition));
-    }
-
-    private void addPiece(String position, Piece piece) {
+    private void addPiece(Position position, Piece piece) {
         board.put(piece, position);
-    }
-
-    private void movePiece(Position sourcePosition, Position targetPosition) {
-        board.move(sourcePosition, targetPosition);
     }
 }
