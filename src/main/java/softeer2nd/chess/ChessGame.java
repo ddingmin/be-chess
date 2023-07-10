@@ -2,15 +2,16 @@ package softeer2nd.chess;
 
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.board.Position;
+import softeer2nd.chess.pieces.Piece;
 
 import static softeer2nd.chess.Command.*;
 
-public class GameController {
-    private final Board board;
+public class ChessGame {
+    private Board board;
     private boolean isRunning;
 
-    public GameController() {
-        board = new Board();
+    public ChessGame(Board board) {
+        this.board = board;
     }
 
     public void main() {
@@ -43,7 +44,7 @@ public class GameController {
             if (command.startsWith(MOVE)) {
                 String[] inputs = command.split(" ");
                 try {
-                    board.move(new Position(inputs[1]), new Position(inputs[2]));
+                    move(new Position(inputs[1]), new Position(inputs[2]));
                     showGameBoard(board);
                 }
                 catch (IllegalArgumentException exception) {
@@ -60,5 +61,13 @@ public class GameController {
     private void exitGame() {
         showExitGameMessage();
         isRunning = false;
+    }
+    public void move(Position sourcePosition, Position targetPosition) {
+        board.put(board.findPiece(sourcePosition), targetPosition);
+        board.put(Piece.createBlank(), sourcePosition);
+    }
+
+    public void initialize() {
+        board.initialize();
     }
 }

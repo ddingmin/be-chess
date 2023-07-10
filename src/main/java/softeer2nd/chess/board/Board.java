@@ -16,7 +16,7 @@ public class Board {
     public static final int MAX_POSITION = 8;
     public static final double PENALTY_PAWN_POINT = 0.5;
 
-    private List<Rank> board;
+    private List<Rank> ranks;
     private Map<Piece.Type, Double> pointByPiece;
 
     public Board() {
@@ -31,76 +31,50 @@ public class Board {
     }
 
     public void initializeEmpty() {
-        board = new ArrayList<>();
+        ranks = new ArrayList<>();
         IntStream.range(START_POSITION, MAX_POSITION)
-                .forEach(rank -> board.add(Rank.createEmpty()));
+                .forEach(rank -> ranks.add(Rank.createEmpty()));
     }
 
     private void initializeSpecialPiece() {
-        board.set(WHITE_SPECIAL_ROW, Rank.createWhiteSpecialPieces());
-        board.set(BLACK_SPECIAL_ROW, Rank.createBlackSpecialPieces());
+        ranks.set(WHITE_SPECIAL_ROW, Rank.createWhiteSpecialPieces());
+        ranks.set(BLACK_SPECIAL_ROW, Rank.createBlackSpecialPieces());
     }
 
     private void initializePawn() {
-        board.set(WHITE_PAWN_ROW, Rank.createWhitePawns());
-        board.set(BLACK_PAWN_ROW, Rank.createBlackPawns());
+        ranks.set(WHITE_PAWN_ROW, Rank.createWhitePawns());
+        ranks.set(BLACK_PAWN_ROW, Rank.createBlackPawns());
     }
 
     private void initializePointByPiece() {
         pointByPiece = new HashMap<>();
     }
 
-    private String convertPoint(int rank, int file) {
-        if (isCorrectPoint(rank, file)) {
-            StringBuilder stringBuilder = new StringBuilder();
-            return stringBuilder.append(rank).append(file).toString();
-        }
-        throw new IllegalArgumentException("올바른 좌표값이 아닙니다.");
-    }
-
-    private boolean isCorrectPoint(int rank, int file) {
-        return (rank >= START_POSITION && rank < MAX_POSITION)
-                && (file >= START_POSITION && file < MAX_POSITION);
-    }
-
-    public String showBoard() {
+    public String getBoard() {
         StringBuilder stringBuilder = new StringBuilder();
 
         /* 마지막 행부터 출력하여 출력 순서를 맞춰준다. */
         for (int rank = MAX_POSITION - 1; rank >= START_POSITION; rank--) {
-            stringBuilder.append(getRankResult(rank));
+            stringBuilder.append(getRank(rank));
         }
         return stringBuilder.toString();
     }
 
-    private String getRankResult(int rowNumber) {
+    private String getRank(int rank) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int y = START_POSITION; y < MAX_POSITION; y++) {
-            stringBuilder.append(getRepresentation(rowNumber, y));
+        for (int file = START_POSITION; file < MAX_POSITION; file++) {
+            stringBuilder.append(findPiece(rank, file).getRepresentation());
         }
         return appendNewLine(stringBuilder.toString());
     }
 
-    private char getRepresentation(int rank, int file) {
-        return board.get(rank).getPiece(file).getRepresentation();
+    public Piece findPiece(Position position) {
+        return ranks.get(position.getRank())
+                .getPiece(position.getFile());
     }
 
-    public void put(Piece piece, int rank, int file) {
-        board.get(rank).putPiece(piece, file);
-    }
-
-    public void put(Piece piece, String position) {
-        int rank = getPositionToRank(position);
-        int file = getPositionToFile(position);
-        board.get(rank).putPiece(piece, file);
-    }
-
-    private int getPositionToFile(String position) {
-        return (position.charAt(0) - 'a');
-    }
-
-    private int getPositionToRank(String position) {
-        return Character.getNumericValue(position.charAt(1) - 1);
+    private Piece findPiece(int rank, int file) {
+        return ranks.get(rank).getPiece(file);
     }
 
     public int pieceAllCount() {
@@ -109,47 +83,34 @@ public class Board {
                 .sum();
     }
 
-    public int pieceCount(Piece.Type type, Piece.Color color) {
+    public int pieceCount(Piece piece) {
         return IntStream.range(START_POSITION, MAX_POSITION)
-                .map(file -> pieceFileCount(color, type, file))
+                .map(file -> pieceFileCount(piece, file))
                 .sum();
     }
 
     public int pieceCount(Piece.Color color) {
         return IntStream.range(START_POSITION, MAX_POSITION)
-                .map(file -> pieceFileCount(color, file))
+                .map(file -> pieceFileCountByColor(color, file))
                 .sum();
     }
 
-    private int pieceFileCount(Piece.Color color, Piece.Type type, int file) {
-        return (int) board.stream()
-                .filter(rank -> rank.getPiece(file).getColor().equals(color)
-                && rank.getPiece(file).getType().equals(type))
+    private int pieceFileCount(Piece piece, int file) {
+        return (int) ranks.stream()
+                .filter(rank -> rank.getPiece(file).equals(piece))
                 .count();
     }
 
-    private int pieceFileCount(Piece.Color color, int file) {
-        return (int) board.stream()
+    private int pieceFileCountByColor(Piece.Color color, int file) {
+        return (int) ranks.stream()
                 .filter(rank -> rank.getPiece(file).getColor().equals(color))
                 .count();
     }
 
     private int pieceFileCount(int file) {
-        return (int) board.stream()
+        return (int) ranks.stream()
                 .filter(rank -> !rank.getPiece(file).getType().equals(Piece.Type.NO_PIECE))
                 .count();
-    }
-
-    public Piece findPiece(String position) {
-        int rank = getPositionToRank(position);
-        int file = getPositionToFile(position);
-        return board.get(rank)
-                .getPiece(file);
-    }
-
-    public Piece findPiece(Position position) {
-        return board.get(position.getRank())
-                .getPiece(position.getFile());
     }
 
     public double calculatePoint(Piece.Color color) {
@@ -163,37 +124,43 @@ public class Board {
         return point;
     }
 
+    public double calculatePoint(Piece piece) {
+        double point = 0.0;
+        point += pieceCount(piece) * piece.getRepresentation();
+        return point;
+    }
+
     private double calculateKing(Piece.Color color) {
-        return pieceCount(Piece.Type.KING, color) * Piece.Type.KING.getDefaultPoint();
+        return pieceCount(Piece.createKing(color)) * Piece.Type.KING.getDefaultPoint();
     }
 
     private double calculateQueen(Piece.Color color) {
-        return pieceCount(Piece.Type.QUEEN, color) * Piece.Type.QUEEN.getDefaultPoint();
+        return pieceCount(Piece.createQueen(color)) * Piece.Type.QUEEN.getDefaultPoint();
     }
 
     private double calculateBishop(Piece.Color color) {
-        return pieceCount(Piece.Type.BISHOP, color) * Piece.Type.BISHOP.getDefaultPoint();
+        return pieceCount(Piece.createBishop(color)) * Piece.Type.BISHOP.getDefaultPoint();
     }
 
     private double calculateRook(Piece.Color color) {
-        return pieceCount(Piece.Type.ROOK, color) * Piece.Type.ROOK.getDefaultPoint();
+        return pieceCount(Piece.createRook(color)) * Piece.Type.ROOK.getDefaultPoint();
     }
 
     private double calculateKnight(Piece.Color color) {
-        return pieceCount(Piece.Type.KNIGHT, color) * Piece.Type.KNIGHT.getDefaultPoint();
+        return pieceCount(Piece.createKnight(color)) * Piece.Type.KNIGHT.getDefaultPoint();
     }
 
     private double calculatePawn(Piece.Color color) {
         return IntStream.range(START_POSITION, MAX_POSITION)
-                .mapToDouble(file -> calculateFilePoint(color, Piece.Type.PAWN, file))
+                .mapToDouble(file -> calculateFilePoint(Piece.createPawn(color), file))
                 .sum();
     }
 
-    private double calculateFilePoint(Piece.Color color, Piece.Type type, int file) {
-        if (pieceFileCount(color, type, file) == 1) {
-            return type.getDefaultPoint();
+    private double calculateFilePoint(Piece piece, int file) {
+        if (pieceFileCount(piece, file) == 1) {
+            return piece.getDefaultPoint();
         }
-        return pieceFileCount(color, type, file) * PENALTY_PAWN_POINT;
+        return pieceFileCount(piece, file) * PENALTY_PAWN_POINT;
     }
 
     public List<Piece.Type> sortAscByPiecePoint(Piece.Color color) {
@@ -225,8 +192,9 @@ public class Board {
         pointByPiece.put(Piece.Type.PAWN, calculatePawn(color));
     }
 
-    public void move(Position sourcePosition, Position targetPosition) {
-        put(findPiece(sourcePosition),targetPosition.getRank(), targetPosition.getFile());
-        put(Piece.createBlank(), sourcePosition.getRank(), sourcePosition.getFile());
+    public void put(Piece piece, Position position) {
+        int rank = position.getRank();
+        int file = position.getFile();
+        ranks.get(rank).putPiece(piece, file);
     }
 }
