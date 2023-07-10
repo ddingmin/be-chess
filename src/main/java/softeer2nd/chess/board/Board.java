@@ -1,6 +1,7 @@
 package softeer2nd.chess.board;
 
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.Type;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -93,7 +94,7 @@ public class Board {
 
     private int pieceFileCount(int file) {
         return (int) ranks.stream()
-                .filter(rank -> !rank.getPiece(file).getType().equals(Piece.Type.NO_PIECE))
+                .filter(rank -> !rank.getPiece(file).getType().equals(Type.NO_PIECE))
                 .count();
     }
 }

@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import softeer2nd.chess.board.Board;
 import softeer2nd.chess.board.Position;
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.Type;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -30,9 +31,9 @@ public class ChessGame {
         board.put(Piece.createBlank(), sourcePosition);
     }
 
-    public List<Piece.Type> sortAscByPiecePoint(Piece.Color color) {
-        Map<Piece.Type, Double> pointByPieces = createPointByPieces(color);
-        List<Piece.Type> sortedKeys = new ArrayList<>(pointByPieces.keySet());
+    public List<Type> sortAscByPiecePoint(Piece.Color color) {
+        Map<Type, Double> pointByPieces = createPointByPieces(color);
+        List<Type> sortedKeys = new ArrayList<>(pointByPieces.keySet());
 
         sortedKeys.sort(Comparator.comparingDouble(pointByPieces::get)
                 .thenComparing(Object::toString));
@@ -40,9 +41,9 @@ public class ChessGame {
         return sortedKeys;
     }
 
-    public List<Piece.Type> sortDescByPiecePoint(Piece.Color color) {
-        Map<Piece.Type, Double> pointByPieces = createPointByPieces(color);
-        List<Piece.Type> sortedKeys = new ArrayList<>(pointByPieces.keySet());
+    public List<Type> sortDescByPiecePoint(Piece.Color color) {
+        Map<Type, Double> pointByPieces = createPointByPieces(color);
+        List<Type> sortedKeys = new ArrayList<>(pointByPieces.keySet());
 
         sortedKeys.sort(Comparator.comparingDouble(pointByPieces::get)
                 .thenComparing(Object::toString)
@@ -61,15 +62,15 @@ public class ChessGame {
         return point;
     }
 
-    private Map<Piece.Type, Double> createPointByPieces(Piece.Color color) {
-        Map<Piece.Type, Double> pointByPieces = new HashMap<>();
+    private Map<Type, Double> createPointByPieces(Piece.Color color) {
+        Map<Type, Double> pointByPieces = new HashMap<>();
 
-        pointByPieces.put(Piece.Type.KING, calculateByGeneralRule(Piece.createKing(color)));
-        pointByPieces.put(Piece.Type.QUEEN, calculateByGeneralRule(Piece.createQueen(color)));
-        pointByPieces.put(Piece.Type.ROOK, calculateByGeneralRule(Piece.createRook(color)));
-        pointByPieces.put(Piece.Type.BISHOP, calculateByGeneralRule(Piece.createBishop(color)));
-        pointByPieces.put(Piece.Type.KNIGHT, calculateByGeneralRule(Piece.createKnight(color)));
-        pointByPieces.put(Piece.Type.PAWN, calculateByPenaltyRule(Piece.createPawn(color)));
+        pointByPieces.put(Type.KING, calculateByGeneralRule(Piece.createKing(color)));
+        pointByPieces.put(Type.QUEEN, calculateByGeneralRule(Piece.createQueen(color)));
+        pointByPieces.put(Type.ROOK, calculateByGeneralRule(Piece.createRook(color)));
+        pointByPieces.put(Type.BISHOP, calculateByGeneralRule(Piece.createBishop(color)));
+        pointByPieces.put(Type.KNIGHT, calculateByGeneralRule(Piece.createKnight(color)));
+        pointByPieces.put(Type.PAWN, calculateByPenaltyRule(Piece.createPawn(color)));
         return pointByPieces;
     }
 

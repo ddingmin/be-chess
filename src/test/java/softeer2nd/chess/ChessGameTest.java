@@ -13,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.chess.pieces.Piece.*;
 import static softeer2nd.chess.pieces.Piece.Color.BLACK;
 import static softeer2nd.chess.pieces.Piece.Color.WHITE;
-import static softeer2nd.chess.pieces.Piece.Type.*;
-import static softeer2nd.chess.pieces.Piece.Type.BISHOP;
+import static softeer2nd.chess.pieces.Type.*;
 import static softeer2nd.chess.pieces.Piece.createWhiteKing;
 
 @DisplayName("체스 게임 테스트")

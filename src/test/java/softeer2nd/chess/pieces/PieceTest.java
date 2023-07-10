@@ -11,26 +11,26 @@ class PieceTest {
     @Test
     @DisplayName("입력한 색의 기물이 생성되어야 한다, 기물과 색에 따라 올바른 출력을 해야 한다.")
     void createPiece() {
-        verifyPiece(Piece.createBlackPawn(), Piece.Color.BLACK, Piece.Type.PAWN.getBlackRepresentation());
-        verifyPiece(Piece.createWhitePawn(), Piece.Color.WHITE, Piece.Type.PAWN.getWhiteRepresentation());
-        verifyPiece(Piece.createWhiteKing(), Piece.Color.WHITE, Piece.Type.KING.getWhiteRepresentation());
-        verifyPiece(Piece.createWhiteQueen(), Piece.Color.WHITE, Piece.Type.QUEEN.getWhiteRepresentation());
-        verifyPiece(Piece.createWhiteBishop(), Piece.Color.WHITE, Piece.Type.BISHOP.getWhiteRepresentation());
-        verifyPiece(Piece.createWhiteRook(), Piece.Color.WHITE, Piece.Type.ROOK.getWhiteRepresentation());
-        verifyPiece(Piece.createWhiteKnight(), Piece.Color.WHITE, Piece.Type.KNIGHT.getWhiteRepresentation());
+        verifyPiece(Piece.createBlackPawn(), Piece.Color.BLACK, Type.PAWN.getBlackRepresentation());
+        verifyPiece(Piece.createWhitePawn(), Piece.Color.WHITE, Type.PAWN.getWhiteRepresentation());
+        verifyPiece(Piece.createWhiteKing(), Piece.Color.WHITE, Type.KING.getWhiteRepresentation());
+        verifyPiece(Piece.createWhiteQueen(), Piece.Color.WHITE, Type.QUEEN.getWhiteRepresentation());
+        verifyPiece(Piece.createWhiteBishop(), Piece.Color.WHITE, Type.BISHOP.getWhiteRepresentation());
+        verifyPiece(Piece.createWhiteRook(), Piece.Color.WHITE, Type.ROOK.getWhiteRepresentation());
+        verifyPiece(Piece.createWhiteKnight(), Piece.Color.WHITE, Type.KNIGHT.getWhiteRepresentation());
     }
 
     @Test
     @DisplayName("기물이 존재하지 않는 기물도 생성되어야 한다.")
     void createBlankPiece() {
-        verifyPiece(Piece.createBlank(), Piece.Color.NOCOLOR, Piece.Type.NO_PIECE.getBlackRepresentation());
+        verifyPiece(Piece.createBlank(), Piece.Color.NOCOLOR, Type.NO_PIECE.getBlackRepresentation());
     }
 
     @Test
     @DisplayName("기물의 색에 따라 올바른 representation 을 반환해야 한다.")
     void getRepresentationPerPiece() throws Exception {
-        assertEquals('p', Piece.Type.PAWN.getWhiteRepresentation());
-        assertEquals('P', Piece.Type.PAWN.getBlackRepresentation());
+        assertEquals('p', Type.PAWN.getWhiteRepresentation());
+        assertEquals('P', Type.PAWN.getBlackRepresentation());
     }
 
     @Test
