@@ -6,7 +6,6 @@ public class Piece {
     public enum Color {
         WHITE, BLACK, NOCOLOR;
     }
-
     public enum Type {
         PAWN('p', 1.0),
         ROOK('r', 5.0),
@@ -104,6 +103,30 @@ public class Piece {
 
     private static Piece createBlack(Type type) {
         return new Piece(Color.BLACK, type);
+    }
+
+    public static Piece createKing(Color color) {
+        return new Piece(color, Type.KING);
+    }
+
+    public static Piece createQueen(Color color) {
+        return new Piece(color, Type.QUEEN);
+    }
+
+    public static Piece createBishop(Color color) {
+        return new Piece(color, Type.BISHOP);
+    }
+
+    public static Piece createRook(Color color) {
+        return new Piece(color, Type.ROOK);
+    }
+
+    public static Piece createKnight(Color color) {
+        return new Piece(color, Type.KNIGHT);
+    }
+
+    public static Piece createPawn(Color color) {
+        return new Piece(color, Type.PAWN);
     }
 
     public Color getColor() {
