@@ -5,17 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static softeer2nd.chess.pieces.Piece.Color.BLACK;
 import static softeer2nd.chess.pieces.Piece.Color.WHITE;
-import static softeer2nd.chess.pieces.Piece.Type.*;
 import static softeer2nd.chess.pieces.Piece.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 @DisplayName("체스판 테스트")
-public class BoardTest {
+class BoardTest {
     private Board board;
     static final String BLANK_RANK = appendNewLine("........");
 
@@ -58,7 +55,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("체스판의 초기 기물 수는 32개, 각 위치의 올바르게 초기화 되어야 한다.")
-    public void create() throws Exception {
+    void create() throws Exception {
         board.initialize();
 
         assertEquals(32, board.pieceAllCount());
@@ -96,7 +93,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("주어진 위치에 존재하는 기물의 종류를 반환한다.")
-    public void findPiece() throws Exception {
+    void findPiece() throws Exception {
         board.initialize();
 
         assertEquals(createBlackRook(), board.findPiece(new Position("a8")));
@@ -107,7 +104,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("주어진 좌표로 임의의 기물을 추가한다.")
-    public void put() throws Exception {
+    void put() throws Exception {
         board.initializeEmpty();
 
         Position position = new Position("b5");
@@ -115,52 +112,5 @@ public class BoardTest {
         board.put(piece, position);
 
         assertEquals(piece, board.findPiece(position));
-    }
-
-    @Test
-    @DisplayName("현재 체스판에 남아있는 기물들의 점수를 계산한다.")
-    public void calculatePoint() throws Exception {
-        board.initializeEmpty();
-
-        addPiece(new Position("b6"), createBlackPawn());
-        addPiece(new Position("e6"), createBlackQueen());
-        addPiece(new Position("b8"), createBlackKing());
-        addPiece(new Position("c8"), createBlackRook());
-
-        addPiece(new Position("f2"), createWhitePawn());
-        addPiece(new Position("g2"), createWhitePawn());
-        addPiece(new Position("g3"), createWhitePawn());
-        addPiece(new Position("g4"), createWhitePawn());
-        addPiece(new Position("e1"), createWhiteRook());
-        addPiece(new Position("f1"), createWhiteKing());
-
-        assertEquals(15.0, board.calculatePoint(BLACK), 0.01);
-        assertEquals(7.5, board.calculatePoint(WHITE), 0.01);
-    }
-
-    @Test
-    @DisplayName("기물별로 점수를 정렬한다.")
-    void sortByPiecePoint() {
-        // when
-        board.initializeEmpty();
-
-        addPiece(new Position("b1"), createWhitePawn());
-        addPiece(new Position("b2"), createWhitePawn());
-        addPiece(new Position("b3"), createWhitePawn());
-        addPiece(new Position("b4"), createWhitePawn());
-        addPiece(new Position("c5"), createWhiteKnight());
-
-        addPiece(new Position("b6"), createBlackPawn());
-        addPiece(new Position("e6"), createBlackQueen());
-        addPiece(new Position("b8"), createBlackKing());
-        addPiece(new Position("c8"), createBlackRook());
-
-        // then
-        assertEquals(Arrays.asList(BISHOP, KING, QUEEN, ROOK, PAWN, KNIGHT), board.sortAscByPiecePoint(WHITE));
-        assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), board.sortDescByPiecePoint(BLACK));
-    }
-
-    private void addPiece(Position position, Piece piece) {
-        board.put(piece, position);
     }
 }

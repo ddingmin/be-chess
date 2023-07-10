@@ -28,7 +28,7 @@ class PieceTest {
 
     @Test
     @DisplayName("기물의 색에 따라 올바른 representation 을 반환해야 한다.")
-    public void getRepresentationPerPiece() throws Exception {
+    void getRepresentationPerPiece() throws Exception {
         assertEquals('p', Piece.Type.PAWN.getWhiteRepresentation());
         assertEquals('P', Piece.Type.PAWN.getBlackRepresentation());
     }
