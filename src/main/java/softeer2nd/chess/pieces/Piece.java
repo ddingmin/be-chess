@@ -3,100 +3,65 @@ package softeer2nd.chess.pieces;
 import java.util.Objects;
 
 public class Piece {
-    public enum Color {
-        WHITE, BLACK, NOCOLOR
-    }
-
     private final Color color;
     private final Type type;
 
-    private Piece(Color color, Type type) {
+    protected Piece(Color color, Type type) {
         this.color = color;
         this.type = type;
     }
 
+    public static Piece create(Type type, Color color) {
+        switch (color) {
+            case BLACK:
+                return createBlack(type);
+            case WHITE:
+                return createWhite(type);
+            default:
+                throw new IllegalArgumentException("올바르지 않은 color 입니다.");
+        }
+    }
+
+    public static Piece createBlack(Type type) {
+        switch (type) {
+            case KING:
+                return King.create(Color.BLACK);
+            case QUEEN:
+                return Queen.create(Color.BLACK);
+            case ROOK:
+                return Rook.create(Color.BLACK);
+            case BISHOP:
+                return Bishop.create(Color.BLACK);
+            case KNIGHT:
+                return Knight.create(Color.BLACK);
+            case PAWN:
+                return Pawn.create(Color.BLACK);
+            default:
+                throw new IllegalArgumentException("올바르지 않은 type 입니다.");
+        }
+    }
+
+    public static Piece createWhite(Type type) {
+        switch (type) {
+            case KING:
+                return King.create(Color.WHITE);
+            case QUEEN:
+                return Queen.create(Color.WHITE);
+            case ROOK:
+                return Rook.create(Color.WHITE);
+            case BISHOP:
+                return Bishop.create(Color.WHITE);
+            case KNIGHT:
+                return Knight.create(Color.WHITE);
+            case PAWN:
+                return Pawn.create(Color.WHITE);
+            default:
+                return null;
+        }
+    }
+
     public static Piece createBlank() {
         return new Piece(Color.NOCOLOR, Type.NO_PIECE);
-    }
-
-    public static Piece createWhiteKing() {
-        return createWhite(Type.KING);
-    }
-
-    public static Piece createWhiteQueen() {
-        return createWhite(Type.QUEEN);
-    }
-
-    public static Piece createWhiteBishop() {
-        return createWhite(Type.BISHOP);
-    }
-
-    public static Piece createWhiteRook() {
-        return createWhite(Type.ROOK);
-    }
-
-    public static Piece createWhiteKnight() {
-        return createWhite(Type.KNIGHT);
-    }
-
-    public static Piece createWhitePawn() {
-        return createWhite(Type.PAWN);
-    }
-
-    public static Piece createBlackKing() {
-        return createBlack(Type.KING);
-    }
-
-    public static Piece createBlackQueen() {
-        return createBlack(Type.QUEEN);
-    }
-
-    public static Piece createBlackBishop() {
-        return createBlack(Type.BISHOP);
-    }
-
-    public static Piece createBlackRook() {
-        return createBlack(Type.ROOK);
-    }
-
-    public static Piece createBlackKnight() {
-        return createBlack(Type.KNIGHT);
-    }
-
-    public static Piece createBlackPawn() {
-        return createBlack(Type.PAWN);
-    }
-
-    private static Piece createWhite(Type type) {
-        return new Piece(Color.WHITE, type);
-    }
-
-    private static Piece createBlack(Type type) {
-        return new Piece(Color.BLACK, type);
-    }
-
-    public static Piece createKing(Color color) {
-        return new Piece(color, Type.KING);
-    }
-
-    public static Piece createQueen(Color color) {
-        return new Piece(color, Type.QUEEN);
-    }
-
-    public static Piece createBishop(Color color) {
-        return new Piece(color, Type.BISHOP);
-    }
-
-    public static Piece createRook(Color color) {
-        return new Piece(color, Type.ROOK);
-    }
-
-    public static Piece createKnight(Color color) {
-        return new Piece(color, Type.KNIGHT);
-    }
-
-    public static Piece createPawn(Color color) {
-        return new Piece(color, Type.PAWN);
     }
 
     public Color getColor() {
