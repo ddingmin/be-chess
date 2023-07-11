@@ -1,9 +1,11 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Type;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
@@ -74,7 +76,7 @@ public class Board {
                 .sum();
     }
 
-    public int pieceCount(Piece.Color color) {
+    public int pieceCount(Color color) {
         return IntStream.range(START_INDEX, MAX_INDEX)
                 .map(file -> pieceFileCountByColor(color, file))
                 .sum();
@@ -86,7 +88,7 @@ public class Board {
                 .count();
     }
 
-    private int pieceFileCountByColor(Piece.Color color, int file) {
+    private int pieceFileCountByColor(Color color, int file) {
         return (int) ranks.stream()
                 .filter(rank -> rank.getPiece(file).getColor().equals(color))
                 .count();
