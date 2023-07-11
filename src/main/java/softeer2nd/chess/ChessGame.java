@@ -28,7 +28,13 @@ public class ChessGame {
     }
 
     public void move(Position sourcePosition, Position targetPosition) {
-        board.put(board.findPiece(sourcePosition), targetPosition);
+        Piece sourcePiece = board.findPiece(sourcePosition);
+
+        // 현재 기물이 이동할 수 있는지 좌표인지 검증
+        sourcePiece.verifyMovePosition(sourcePosition, targetPosition);
+
+        // 모든 로직이 완료되었다면 이동.
+        board.put(sourcePiece, targetPosition);
         board.put(Piece.createBlank(), sourcePosition);
     }
 
