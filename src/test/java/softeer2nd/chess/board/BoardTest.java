@@ -4,11 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.Type;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static softeer2nd.chess.pieces.Piece.Color.BLACK;
-import static softeer2nd.chess.pieces.Piece.Color.WHITE;
-import static softeer2nd.chess.pieces.Piece.*;
+import static softeer2nd.chess.pieces.Color.*;
+import static softeer2nd.chess.pieces.Type.*;
 import static softeer2nd.chess.utils.StringUtils.appendNewLine;
 
 @DisplayName("체스판 테스트")
@@ -29,15 +29,15 @@ class BoardTest {
         Position whitePawnPosition1 = new Position("g2");
         Position whitePawnPosition2 = new Position("f3");
 
-        board.put(createWhiteRook(), whiteRookPosition);
-        board.put(createWhiteKing(), whiteKingPosition);
-        board.put(createWhitePawn(), whitePawnPosition1);
-        board.put(createWhitePawn(), whitePawnPosition2);
+        board.put(Piece.create(Type.ROOK, WHITE), whiteRookPosition);
+        board.put(Piece.create(Type.KING, WHITE), whiteKingPosition);
+        board.put(Piece.create(Type.PAWN, WHITE), whitePawnPosition1);
+        board.put(Piece.create(Type.PAWN, WHITE), whitePawnPosition2);
 
-        assertEquals(createWhiteRook(), board.findPiece(whiteRookPosition));
-        assertEquals(createWhiteKing(), board.findPiece(whiteKingPosition));
-        assertEquals(createWhitePawn(), board.findPiece(whitePawnPosition1));
-        assertEquals(createWhitePawn(), board.findPiece(whitePawnPosition2));
+        assertEquals(Piece.create(Type.ROOK, WHITE), board.findPiece(whiteRookPosition));
+        assertEquals(Piece.create(Type.KING, WHITE), board.findPiece(whiteKingPosition));
+        assertEquals(Piece.create(Type.PAWN, WHITE), board.findPiece(whitePawnPosition1));
+        assertEquals(Piece.create(Type.PAWN, WHITE), board.findPiece(whitePawnPosition2));
     }
 
     @Test
@@ -74,18 +74,18 @@ class BoardTest {
     void getPieceCount() {
         board.initialize();
 
-        assertEquals(1, board.pieceCount(createWhiteKing()));
-        assertEquals(1, board.pieceCount(createBlackKing()));
-        assertEquals(1, board.pieceCount(createWhiteQueen()));
-        assertEquals(1, board.pieceCount(createBlackQueen()));
-        assertEquals(2, board.pieceCount(createWhiteBishop()));
-        assertEquals(2, board.pieceCount(createBlackBishop()));
-        assertEquals(2, board.pieceCount(createWhiteRook()));
-        assertEquals(2, board.pieceCount(createBlackRook()));
-        assertEquals(2, board.pieceCount(createWhiteKnight()));
-        assertEquals(2, board.pieceCount(createBlackKnight()));
-        assertEquals(8, board.pieceCount(createWhitePawn()));
-        assertEquals(8, board.pieceCount(createBlackPawn()));
+        assertEquals(1, board.pieceCount(Piece.create(KING, WHITE)));
+        assertEquals(1, board.pieceCount(Piece.create(KING, BLACK)));
+        assertEquals(1, board.pieceCount(Piece.create(QUEEN, WHITE)));
+        assertEquals(1, board.pieceCount(Piece.create(QUEEN, BLACK)));
+        assertEquals(2, board.pieceCount(Piece.create(BISHOP, WHITE)));
+        assertEquals(2, board.pieceCount(Piece.create(BISHOP, BLACK)));
+        assertEquals(2, board.pieceCount(Piece.create(ROOK, WHITE)));
+        assertEquals(2, board.pieceCount(Piece.create(ROOK, BLACK)));
+        assertEquals(2, board.pieceCount(Piece.create(KNIGHT, WHITE)));
+        assertEquals(2, board.pieceCount(Piece.create(KNIGHT, BLACK)));
+        assertEquals(8, board.pieceCount(Piece.create(PAWN, WHITE)));
+        assertEquals(8, board.pieceCount(Piece.create(PAWN, BLACK)));
 
         assertEquals(16, board.pieceCount(WHITE));
         assertEquals(16, board.pieceCount(BLACK));
@@ -96,10 +96,10 @@ class BoardTest {
     void findPiece() throws Exception {
         board.initialize();
 
-        assertEquals(createBlackRook(), board.findPiece(new Position("a8")));
-        assertEquals(createBlackRook(), board.findPiece(new Position("h8")));
-        assertEquals(createWhiteRook(), board.findPiece(new Position("a1")));
-        assertEquals(createWhiteRook(), board.findPiece(new Position("h1")));
+        assertEquals(Piece.create(ROOK, BLACK), board.findPiece(new Position("a8")));
+        assertEquals(Piece.create(ROOK, BLACK), board.findPiece(new Position("h8")));
+        assertEquals(Piece.create(ROOK, WHITE), board.findPiece(new Position("a1")));
+        assertEquals(Piece.create(ROOK, WHITE), board.findPiece(new Position("h1")));
     }
 
     @Test
@@ -108,7 +108,7 @@ class BoardTest {
         board.initializeEmpty();
 
         Position position = new Position("b5");
-        Piece piece = createBlackRook();
+        Piece piece = Piece.create(ROOK, BLACK);
         board.put(piece, position);
 
         assertEquals(piece, board.findPiece(position));

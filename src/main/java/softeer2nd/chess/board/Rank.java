@@ -1,6 +1,8 @@
 package softeer2nd.chess.board;
 
+import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,38 +23,38 @@ public class Rank {
     }
 
     public static Rank createWhitePawns() {
-        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.createWhitePawn()).collect(Collectors.toList());
+        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.create(Type.PAWN, Color.WHITE)).collect(Collectors.toList());
         return new Rank(pieces);
     }
 
     public static Rank createBlackPawns() {
-        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.createBlackPawn()).collect(Collectors.toList());
+        List<Piece> pieces = IntStream.range(0, RANK_SIZE).mapToObj(i -> Piece.create(Type.PAWN, Color.BLACK)).collect(Collectors.toList());
         return new Rank(pieces);
     }
 
     public static Rank createWhiteSpecialPieces() {
         List<Piece> pieces = new ArrayList<>();
-        pieces.add(Piece.createWhiteRook());
-        pieces.add(Piece.createWhiteKnight());
-        pieces.add(Piece.createWhiteBishop());
-        pieces.add(Piece.createWhiteQueen());
-        pieces.add(Piece.createWhiteKing());
-        pieces.add(Piece.createWhiteBishop());
-        pieces.add(Piece.createWhiteKnight());
-        pieces.add(Piece.createWhiteRook());
+        pieces.add(Piece.create(Type.ROOK, Color.WHITE));
+        pieces.add(Piece.create(Type.KNIGHT, Color.WHITE));
+        pieces.add(Piece.create(Type.BISHOP, Color.WHITE));
+        pieces.add(Piece.create(Type.QUEEN, Color.WHITE));
+        pieces.add(Piece.create(Type.KING, Color.WHITE));
+        pieces.add(Piece.create(Type.BISHOP, Color.WHITE));
+        pieces.add(Piece.create(Type.KNIGHT, Color.WHITE));
+        pieces.add(Piece.create(Type.ROOK, Color.WHITE));
         return new Rank(pieces);
     }
 
     public static Rank createBlackSpecialPieces() {
         List<Piece> pieces = new ArrayList<>();
-        pieces.add(Piece.createBlackRook());
-        pieces.add(Piece.createBlackKnight());
-        pieces.add(Piece.createBlackBishop());
-        pieces.add(Piece.createBlackQueen());
-        pieces.add(Piece.createBlackKing());
-        pieces.add(Piece.createBlackBishop());
-        pieces.add(Piece.createBlackKnight());
-        pieces.add(Piece.createBlackRook());
+        pieces.add(Piece.create(Type.ROOK, Color.BLACK));
+        pieces.add(Piece.create(Type.KNIGHT, Color.BLACK));
+        pieces.add(Piece.create(Type.BISHOP, Color.BLACK));
+        pieces.add(Piece.create(Type.QUEEN, Color.BLACK));
+        pieces.add(Piece.create(Type.KING, Color.BLACK));
+        pieces.add(Piece.create(Type.BISHOP, Color.BLACK));
+        pieces.add(Piece.create(Type.KNIGHT, Color.BLACK));
+        pieces.add(Piece.create(Type.ROOK, Color.BLACK));
         return new Rank(pieces);
     }
 
