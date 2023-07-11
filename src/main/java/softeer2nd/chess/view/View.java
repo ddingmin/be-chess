@@ -2,14 +2,18 @@ package softeer2nd.chess.view;
 
 import softeer2nd.chess.board.Board;
 
+// TODO: static 으로 변경한다.
 public class View {
-    private final Board board;
+    private static View view = new View();
 
-    public View(Board board) {
-        this.board = board;
+    private View() {
     }
 
-    public void printBoard() {
+    public static View getView() {
+        return view;
+    }
+
+    public void printBoard(Board board) {
         System.out.println("== 체스판 ==");
         System.out.println(board.getBoard());
     }

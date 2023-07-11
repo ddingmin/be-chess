@@ -13,10 +13,10 @@ public class Main {
     public static final String MOVE = "move";
 
     public static void main(String[] args) {
+        View view = View.getView();
         Scanner scanner = new Scanner(System.in);
         Board board = new Board();
         ChessGame chessGame = new ChessGame(board);
-        View view = new View(board);
         String command;
 
         boolean isRunning = true;
@@ -38,7 +38,7 @@ public class Main {
             if (command.equals(START)) {
                 isGaming = true;
                 chessGame.initialize();
-                view.printBoard();
+                view.printBoard(board);
 
                 while (isGaming) {
                     view.printGameCommand();
@@ -57,7 +57,7 @@ public class Main {
                         view.printGameCommand();
                         String[] moves = command.split(" ");
                         chessGame.move(new Position(moves[1]), new Position(moves[2]));
-                        view.printBoard();
+                        view.printBoard(board);
                     }
                 }
             }
