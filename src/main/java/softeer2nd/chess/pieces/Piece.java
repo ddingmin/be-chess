@@ -1,8 +1,10 @@
 package softeer2nd.chess.pieces;
 
+import softeer2nd.chess.board.Position;
+
 import java.util.Objects;
 
-public class Piece {
+public abstract class Piece {
     private final Color color;
     private final Type type;
 
@@ -56,12 +58,12 @@ public class Piece {
             case PAWN:
                 return Pawn.create(Color.WHITE);
             default:
-                return null;
+                throw new IllegalArgumentException("올바르지 않은 type 입니다.");
         }
     }
 
     public static Piece createBlank() {
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
+        return Blank.create();
     }
 
     public Color getColor() {
@@ -89,6 +91,18 @@ public class Piece {
 
     public boolean isBlack() {
         return color.equals(Color.BLACK);
+    }
+
+    public abstract void verifyMovePosition(Position sourcePosition, Position targetPosition);
+
+    protected boolean isCorrectRoute(Direction direction, int differenceFile, int differenceRank) {
+        for (int i = 1; i < 8; i++) {
+            if (direction.getXDegree() * i == differenceFile
+                    && direction.getYDegree() * i == differenceRank) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
