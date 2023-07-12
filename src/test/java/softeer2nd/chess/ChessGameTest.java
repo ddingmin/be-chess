@@ -94,6 +94,24 @@ class ChessGameTest {
         assertDoesNotThrow(() -> movePiece(new Position("c8"), new Position("c7")));
     }
 
+    @Test
+    @DisplayName("지속적인 이동을 하는 기물들의 경로에 기물이 존재하면 에러가 발생한다.")
+    void moveMovingPieceOnExistRoute() {
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("a1"), new Position("a6")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("a1"), new Position("a7")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("a1"), new Position("a8")));
+
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("d8"), new Position("a8")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("d8"), new Position("e8")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("d8"), new Position("c7")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("d8"), new Position("h4")));
+
+
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("f1"), new Position("g2")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("f1"), new Position("a6")));
+        assertThrows(IllegalArgumentException.class,() -> movePiece(new Position("f1"), new Position("e6")));
+    }
+
     private void addPiece(Position position, Piece piece) {
         board.put(piece, position);
     }
