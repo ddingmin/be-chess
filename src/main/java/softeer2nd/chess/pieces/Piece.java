@@ -96,9 +96,9 @@ public abstract class Piece {
     public abstract void verifyMovePosition(Position sourcePosition, Position targetPosition);
 
     protected boolean isExistCorrectRoute(Direction direction, int differenceRank, int differenceFile) {
-        for (int i = 1; i < 8; i++) {
-            if (direction.getXDegree() * i == differenceFile
-                    && direction.getYDegree() * i == differenceRank) {
+        for (int factor = 1; factor < 8; factor++) {
+            if (direction.getXDegree() * factor == differenceFile
+                    && direction.getYDegree() * factor == differenceRank) {
                 return true;
             }
         }

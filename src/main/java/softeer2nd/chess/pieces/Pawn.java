@@ -13,7 +13,6 @@ public class Pawn extends Piece{
 
     @Override
     public void verifyMovePosition(Position sourcePosition, Position targetPosition) {
-        // TODO: 차이를 찾는 로직은 direction으로 옮겨주자.
         int differenceRank = targetPosition.getRank() - sourcePosition.getRank();
         int differenceFile = targetPosition.getFile() - sourcePosition.getFile();
 
