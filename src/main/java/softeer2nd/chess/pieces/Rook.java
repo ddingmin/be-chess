@@ -17,7 +17,7 @@ public class Rook extends Piece{
         int differenceRank = targetPosition.getRank() - sourcePosition.getRank();
 
         for (Direction direction : Direction.linearDirection()) {
-            if (isCorrectRoute(direction, differenceFile, differenceRank)) {
+            if (isExistCorrectRoute(direction, differenceRank, differenceFile)) {
                 return;
             }
         }

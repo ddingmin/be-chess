@@ -17,7 +17,7 @@ public class Bishop extends Piece{
         int differenceRank = targetPosition.getRank() - sourcePosition.getRank();
 
         for (Direction direction : Direction.diagonalDirection()) {
-            if (isCorrectRoute(direction, differenceFile, differenceRank)) {
+            if (isExistCorrectRoute(direction, differenceRank, differenceFile)) {
                 return;
             }
         }

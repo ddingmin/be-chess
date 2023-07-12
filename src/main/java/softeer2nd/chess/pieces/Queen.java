@@ -17,7 +17,7 @@ public class Queen extends Piece{
         int differenceRank = targetPosition.getRank() - sourcePosition.getRank();
 
         for (Direction direction : Direction.everyDirection()) {
-            if (isCorrectRoute(direction, differenceFile, differenceRank)) {
+            if (isExistCorrectRoute(direction, differenceRank, differenceFile)) {
                 return;
             }
         }
