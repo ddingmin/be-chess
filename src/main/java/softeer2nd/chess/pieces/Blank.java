@@ -13,6 +13,6 @@ public class Blank extends Piece{
 
     @Override
     public void verifyMovePosition(Position sourcePosition, Position targetPosition) {
-        throw new IllegalArgumentException("빈 기물은 움직일 수 없습니다.");
+        throw new IllegalArgumentException("이동시킬 좌표에 기물이 존재하지 않습니다.");
     }
 }

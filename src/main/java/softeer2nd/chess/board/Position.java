@@ -13,7 +13,7 @@ public class Position {
 
     private void validatePosition(String position) {
         if (position.length() != 2) {
-            throw new IllegalArgumentException("올바른 좌표가 아닙니다.");
+            throw new IllegalArgumentException("올바른 좌표 형태가 아닙니다.");
         }
         if (position.charAt(0) < 'a' || position.charAt(0) > 'h') {
             throw new IllegalArgumentException("올바른 file이 아닙니다.");
