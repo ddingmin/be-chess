@@ -30,12 +30,60 @@ public class ChessGame {
     public void move(Position sourcePosition, Position targetPosition) {
         Piece sourcePiece = board.findPiece(sourcePosition);
 
-        // 현재 기물이 이동할 수 있는지 좌표인지 검증
         sourcePiece.verifyMovePosition(sourcePosition, targetPosition);
+        verifyMove(sourcePosition, targetPosition, sourcePiece);
 
-        // 모든 로직이 완료되었다면 이동.
         board.put(sourcePiece, targetPosition);
         board.put(Piece.createBlank(), sourcePosition);
+    }
+
+    private void verifyMove(Position sourcePosition, Position targetPosition, Piece sourcePiece) {
+        if (isSameColor(sourcePosition, targetPosition)) {
+            throw new IllegalArgumentException("이동할 위치에 같은 색 기물이 존재합니다.");
+        }
+        if (!isMovingPiece(sourcePiece)) {
+            return;
+        }
+        if (isExistPieceOnRoute(sourcePosition, targetPosition)) {
+            throw new IllegalArgumentException("이동 경로에 기물이 존재해 이동할 수 없습니다.");
+        }
+    }
+
+    private boolean isSameColor(Position sourcePosition, Position targetPosition) {
+        return board.findPiece(sourcePosition).getColor()
+                .equals(board.findPiece(targetPosition).getColor());
+    }
+
+    private boolean isExistPieceOnRoute(Position sourcePosition, Position targetPosition) {
+        int bigFile = Math.max(targetPosition.getFile(), sourcePosition.getFile());
+        int bigRank = Math.max(targetPosition.getRank(), sourcePosition.getRank());
+        int smallFile = Math.min(targetPosition.getFile(), sourcePosition.getFile());
+        int smallRank = Math.min(targetPosition.getRank(), sourcePosition.getRank());
+
+        for (int file = smallFile; file < bigFile + 1; file++) {
+            for (int rank = smallRank; rank < bigRank + 1; rank++) {
+                if (isNeedlessPosition(sourcePosition, targetPosition, rank, file)) {
+                    continue;
+                }
+                if (isExistPiece(rank, file)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isNeedlessPosition(Position sourcePosition, Position targetPosition, int rank, int file) {
+        return (rank == sourcePosition.getRank() && file == sourcePosition.getFile())
+                || rank == targetPosition.getRank() && file == targetPosition.getFile();
+    }
+
+    private boolean isExistPiece(int rank, int file) {
+        return !board.findPiece(rank, file).getType().equals(Type.NO_PIECE);
+    }
+
+    private static boolean isMovingPiece(Piece sourcePiece) {
+        return sourcePiece.getType().equals(Type.QUEEN) || sourcePiece.getType().equals(Type.ROOK) || sourcePiece.getType().equals(Type.BISHOP);
     }
 
     public List<Type> sortAscByPiecePoint(Color color) {

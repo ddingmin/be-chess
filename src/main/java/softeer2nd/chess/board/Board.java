@@ -64,6 +64,11 @@ public class Board {
                 .getPiece(position.getFile());
     }
 
+    public Piece findPiece(int rank, int file) {
+        return ranks.get(rank)
+                .getPiece(file);
+    }
+
     public int pieceAllCount() {
         return IntStream.range(START_INDEX, MAX_INDEX)
                 .map(this::pieceFileCount)
