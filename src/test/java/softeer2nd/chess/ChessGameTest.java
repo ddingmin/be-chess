@@ -23,13 +23,13 @@ class ChessGameTest {
     void setUp() {
         board = new Board();
         chessGame = new ChessGame(board);
+        chessGame.initialize();
     }
 
     @Test
     @DisplayName("주어진 좌표에 있는 기물들이 주어진 좌표로 이동한다.")
     void move() throws Exception {
         // given
-        chessGame.initialize();
         Position sourcePosition = new Position("b2");
         Position targetPosition = new Position("b3");
 
@@ -82,6 +82,16 @@ class ChessGameTest {
         // then
         assertEquals(Arrays.asList(BISHOP, KING, QUEEN, ROOK, PAWN, KNIGHT), chessGame.sortAscByPiecePoint(WHITE));
         assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), chessGame.sortDescByPiecePoint(BLACK));
+    }
+
+    @Test
+    @DisplayName("이동할 위치에 다른 색 기물이 존재하면 이동할 수 있다.")
+    void movePositionExistDiffColor() {
+        addPiece(new Position("e7"), create(KING, WHITE));
+        assertDoesNotThrow(() -> movePiece(new Position("e7"), new Position("e8")));
+        assertDoesNotThrow(() -> movePiece(new Position("e8"), new Position("d8")));
+        assertDoesNotThrow(() -> movePiece(new Position("d8"), new Position("c8")));
+        assertDoesNotThrow(() -> movePiece(new Position("c8"), new Position("c7")));
     }
 
     private void addPiece(Position position, Piece piece) {
