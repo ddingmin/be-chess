@@ -38,9 +38,4 @@ public class Position {
     public int getRank() {
         return rank;
     }
-
-    @Override
-    public String toString() {
-        return Integer.toString(file + 'a') + Integer.toString(rank);
-    }
 }

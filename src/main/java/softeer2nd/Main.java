@@ -55,7 +55,7 @@ public class Main {
                     }
                     if (command.startsWith(MOVE)) {
                         view.printGameCommand();
-                        String[] moves = command.split(" 때");
+                        String[] moves = command.split(" ");
 
                         if (!isCorrectMoveCommand(moves)) {
                             view.printError();
@@ -87,6 +87,4 @@ public class Main {
     private static boolean isCorrectProgramCommand(String command) {
         return command.equals(START) || command.equals(END);
     }
-
-
 }
