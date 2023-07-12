@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static final String START = "start";
     public static final String END = "end";
-    public static final String MOVE = "move";
+    public static final String MOVE = "move ";
 
     public static void main(String[] args) {
         View view = View.getView();
@@ -55,8 +55,20 @@ public class Main {
                     }
                     if (command.startsWith(MOVE)) {
                         view.printGameCommand();
-                        String[] moves = command.split(" ");
-                        chessGame.move(new Position(moves[1]), new Position(moves[2]));
+                        String[] moves = command.split(" 때");
+
+                        if (!isCorrectMoveCommand(moves)) {
+                            view.printError();
+                            continue;
+                        }
+
+                        try {
+                            chessGame.move(new Position(moves[1]), new Position(moves[2]));
+                        } catch (IllegalArgumentException illegalArgumentException) {
+                            view.printError(illegalArgumentException.getMessage());
+                            continue;
+                        }
+
                         view.printBoard(board);
                     }
                 }
@@ -68,7 +80,13 @@ public class Main {
         return command.equals(END) || command.startsWith(MOVE);
     }
 
+    private static boolean isCorrectMoveCommand(String[] commands) {
+        return commands.length == 3;
+    }
+
     private static boolean isCorrectProgramCommand(String command) {
         return command.equals(START) || command.equals(END);
     }
+
+
 }
