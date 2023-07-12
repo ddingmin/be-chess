@@ -30,6 +30,10 @@ public class View {
         System.out.println("잘못된 입력입니다. 올바른 명령어를 입력해주세요.");
     }
 
+    public void printError(String errorMessage) {
+        System.out.println(errorMessage);
+    }
+
     public void printGameCommand() {
         System.out.println("이동 명령어와 이동시킬 좌표, 이동할 좌표를 입력해주세요. (이동: move a2 a3, 종료: end)");
     }
