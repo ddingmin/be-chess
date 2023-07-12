@@ -6,7 +6,7 @@ import softeer2nd.chess.board.Position;
 import softeer2nd.chess.view.View;
 
 import java.util.Scanner;
-
+// TODO: 메인 함수 분리하기
 public class Main {
     public static final String START = "start";
     public static final String END = "end";
