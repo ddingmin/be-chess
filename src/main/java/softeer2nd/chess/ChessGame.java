@@ -39,13 +39,13 @@ public class ChessGame {
 
     private void verifyMove(Position sourcePosition, Position targetPosition, Piece sourcePiece) {
         if (isSameColor(sourcePosition, targetPosition)) {
-            throw new IllegalArgumentException("이동할 위치에 같은 색 기물이 존재합니다.");
+            throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
         }
         if (!isMovingPiece(sourcePiece)) {
             return;
         }
         if (isExistPieceOnRoute(sourcePosition, targetPosition)) {
-            throw new IllegalArgumentException("이동 경로에 기물이 존재해 이동할 수 없습니다.");
+            throw new RuntimeException("이동 경로에 기물이 존재해 이동할 수 없습니다.");
         }
     }
 
