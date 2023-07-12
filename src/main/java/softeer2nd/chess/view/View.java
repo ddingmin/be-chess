@@ -2,7 +2,6 @@ package softeer2nd.chess.view;
 
 import softeer2nd.chess.board.Board;
 
-// TODO: static 으로 변경한다.
 public class View {
     private static View view = new View();
 
