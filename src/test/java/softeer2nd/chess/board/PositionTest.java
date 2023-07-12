@@ -23,6 +23,24 @@ class PositionTest {
         assertDoesNotThrow(() -> create(h8));
     }
 
+    @Test
+    @DisplayName("잘못된 좌표에 예외가 발생한다.")
+    void createFail() {
+        // given
+        String reverseString = "1a";
+        String startString = "start";
+        String nullString = "";
+        String overString1 = "a9";
+        String overString2 = "z2";
+
+        // then
+        assertThrows(IllegalArgumentException.class, () -> create(reverseString));
+        assertThrows(IllegalArgumentException.class, () -> create(startString));
+        assertThrows(IllegalArgumentException.class, () -> create(nullString));
+        assertThrows(IllegalArgumentException.class, () -> create(overString1));
+        assertThrows(IllegalArgumentException.class, () -> create(overString2));
+    }
+
     private Position create(String string) {
         return new Position(string);
     }
