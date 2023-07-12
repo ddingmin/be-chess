@@ -17,7 +17,7 @@ public class King extends Piece{
         int differenceRank = targetPosition.getRank() - sourcePosition.getRank();
 
         for (Direction direction : Direction.everyDirection()) {
-            if (direction.getXDegree() == differenceFile && direction.getYDegree() == differenceRank) {
+            if (isExistCorrectPoint(direction, differenceRank, differenceFile)) {
                 return;
             }
         }
