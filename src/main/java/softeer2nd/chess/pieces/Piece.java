@@ -93,6 +93,10 @@ public abstract class Piece {
         return color.equals(Color.BLACK);
     }
 
+    public boolean isBlank() {
+        return color.equals(Color.NOCOLOR);
+    }
+
     public abstract void verifyMovePosition(Position sourcePosition, Position targetPosition);
 
     protected boolean isExistCorrectRoute(Direction direction, int differenceRank, int differenceFile) {

@@ -38,14 +38,17 @@ public class ChessGame {
     }
 
     private void verifyMove(Position sourcePosition, Position targetPosition, Piece sourcePiece) {
-        if (isSameColor(sourcePosition, targetPosition)) {
-            throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
-        }
+        verifyExistSameColor(sourcePosition, targetPosition);
+
         if (!sourcePiece.isMovingPiece()) {
             return;
         }
-        if (isExistPieceOnRoute(sourcePosition, targetPosition)) {
-            throw new RuntimeException("이동 경로에 기물이 존재해 이동할 수 없습니다.");
+        verifyExistPieceOnRoute(sourcePosition, targetPosition);
+    }
+
+    private void verifyExistSameColor(Position sourcePosition, Position targetPosition) {
+        if (isSameColor(sourcePosition, targetPosition)) {
+            throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
         }
     }
 
@@ -54,29 +57,24 @@ public class ChessGame {
                 .equals(board.findPiece(targetPosition).getColor());
     }
 
-    private boolean isExistPieceOnRoute(Position sourcePosition, Position targetPosition) {
-        int bigFile = Math.max(targetPosition.getFile(), sourcePosition.getFile());
-        int bigRank = Math.max(targetPosition.getRank(), sourcePosition.getRank());
-        int smallFile = Math.min(targetPosition.getFile(), sourcePosition.getFile());
-        int smallRank = Math.min(targetPosition.getRank(), sourcePosition.getRank());
+    private void verifyExistPieceOnRoute(Position sourcePosition, Position targetPosition) {
+        int directionRank = Integer.compare(targetPosition.getRank() - sourcePosition.getRank(), 0);
+        int directionFile = Integer.compare(targetPosition.getFile() - sourcePosition.getFile(), 0);
 
-        for (int file = smallFile; file < bigFile + 1; file++) {
-            for (int rank = smallRank; rank < bigRank + 1; rank++) {
-                Position currentPosition = new Position(rank, file);
-                if (sourcePosition.equals(currentPosition)
-                        && targetPosition.equals(currentPosition)) {
-                    continue;
-                }
-                if (isExistPiece(currentPosition)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        verifyExistPiece(sourcePosition, targetPosition, directionRank, directionFile);
     }
 
-    private boolean isExistPiece(Position position) {
-        return !board.findPiece(position).getType().equals(Type.NO_PIECE);
+    private void verifyExistPiece(Position position, Position targetPosition, int directionRank, int directionFile) {
+        Position nextPosition = new Position(position.getRank() + directionRank, position.getFile() + directionFile);
+
+        if (targetPosition.equals(nextPosition)) {
+            return;
+        }
+
+        if (!board.findPiece(nextPosition).isBlank()) {
+            throw new RuntimeException("이동 경로에 기물이 존재합니다.");
+        }
+        verifyExistPiece(nextPosition, targetPosition, directionRank, directionFile);
     }
 
     public List<Type> sortAscByPiecePoint(Color color) {
