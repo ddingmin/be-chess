@@ -1,6 +1,6 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.utils.Position;
+import softeer2nd.chess.position.Position;
 
 public class King extends Piece{
     private King(Color color, Type type) {

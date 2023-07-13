@@ -1,4 +1,4 @@
-package softeer2nd.chess.utils;
+package softeer2nd.chess.position;
 
 import java.util.Objects;
 

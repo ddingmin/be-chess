@@ -1,10 +1,10 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.board.Board;
-import softeer2nd.chess.utils.Position;
 import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Type;
+import softeer2nd.chess.position.Position;
 
 import java.util.*;
 import java.util.stream.IntStream;
