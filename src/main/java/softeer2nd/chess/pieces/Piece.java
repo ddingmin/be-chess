@@ -109,6 +109,10 @@ public abstract class Piece {
         return direction.getYDegree() == differenceRank && direction.getXDegree() == differenceFile;
     }
 
+    public boolean isMovingPiece() {
+        return getType().equals(Type.QUEEN) || getType().equals(Type.ROOK) || getType().equals(Type.BISHOP);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

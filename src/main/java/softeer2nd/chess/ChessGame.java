@@ -41,7 +41,7 @@ public class ChessGame {
         if (isSameColor(sourcePosition, targetPosition)) {
             throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
         }
-        if (!isMovingPiece(sourcePiece)) {
+        if (!sourcePiece.isMovingPiece()) {
             return;
         }
         if (isExistPieceOnRoute(sourcePosition, targetPosition)) {
@@ -77,10 +77,6 @@ public class ChessGame {
 
     private boolean isExistPiece(Position position) {
         return !board.findPiece(position).getType().equals(Type.NO_PIECE);
-    }
-
-    private static boolean isMovingPiece(Piece sourcePiece) {
-        return sourcePiece.getType().equals(Type.QUEEN) || sourcePiece.getType().equals(Type.ROOK) || sourcePiece.getType().equals(Type.BISHOP);
     }
 
     public List<Type> sortAscByPiecePoint(Color color) {
