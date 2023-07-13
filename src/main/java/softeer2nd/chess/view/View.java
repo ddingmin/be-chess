@@ -34,7 +34,7 @@ public class View {
     }
 
     public void printGameCommand() {
-        System.out.println("이동 명령어와 이동시킬 좌표, 이동할 좌표를 입력해주세요. (이동: move a2 a3, 종료: end)");
+        System.out.println("이동 명령어와 이동시킬 좌표, 이동할 좌표를 입력해주세요. (이동: move a2 a3, 체스판: show, 종료: end)");
     }
 
     public void printGameEnd() {

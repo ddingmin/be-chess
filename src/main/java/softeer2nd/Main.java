@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static final String START = "start";
     public static final String END = "end";
+    private static final String SHOW = "show";
     public static final String MOVE = "move ";
     public static final View view = View.getView();
     public static final Scanner scanner = new Scanner(System.in);
@@ -64,6 +65,10 @@ public class Main {
                 isGaming = false;
                 continue;
             }
+            if (command.equals(SHOW)) {
+                view.printBoard(board);
+                continue;
+            }
             if (command.startsWith(MOVE)) {
                 view.printGameCommand();
                 move(board, chessGame, command);
@@ -90,7 +95,7 @@ public class Main {
     }
 
     private static boolean isCorrectGameCommand(String command) {
-        return command.equals(END) || command.startsWith(MOVE);
+        return command.equals(END) || command.startsWith(MOVE) || command.equals(SHOW);
     }
 
     private static boolean isCorrectMoveCommand(String[] commands) {
