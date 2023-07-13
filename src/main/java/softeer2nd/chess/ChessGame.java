@@ -14,9 +14,11 @@ public class ChessGame {
     public static final int MAX_POSITION = 8;
     public static final double PENALTY_PAWN_POINT = 0.5;
     private final Board board;
+    private Color turn;
 
-    public ChessGame(Board board) {
+    public ChessGame(Board board, Color turn) {
         this.board = board;
+        this.turn = turn;
     }
 
     public void initialize() {
@@ -35,15 +37,24 @@ public class ChessGame {
 
         board.put(sourcePiece, targetPosition);
         board.put(Piece.createBlank(), sourcePosition);
+        changeTurn();
     }
 
     private void verifyMove(Position sourcePosition, Position targetPosition, Piece sourcePiece) {
+        verifyTurn(sourcePiece);
         verifyExistSameColor(sourcePosition, targetPosition);
 
         if (!sourcePiece.isMovingPiece()) {
             return;
         }
         verifyExistPieceOnRoute(sourcePosition, targetPosition);
+    }
+
+    private void verifyTurn(Piece sourcePiece) {
+        if (turn.equals(sourcePiece.getColor())) {
+            return;
+        }
+        throw new RuntimeException("현재 " + turn.toString() + " 플레이어의 턴입니다.");
     }
 
     private void verifyExistSameColor(Position sourcePosition, Position targetPosition) {
@@ -75,6 +86,14 @@ public class ChessGame {
             throw new RuntimeException("이동 경로에 기물이 존재합니다.");
         }
         verifyExistPiece(nextPosition, targetPosition, directionRank, directionFile);
+    }
+
+    private void changeTurn() {
+        if (turn.equals(Color.WHITE)) {
+            turn = Color.BLACK;
+            return;
+        }
+        turn = Color.WHITE;
     }
 
     public List<Type> sortAscByPiecePoint(Color color) {

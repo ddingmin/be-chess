@@ -2,6 +2,7 @@ package softeer2nd;
 
 import softeer2nd.chess.ChessGame;
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.position.Position;
 import softeer2nd.chess.view.View;
 
@@ -17,7 +18,8 @@ public class Main {
 
     public static void main(String[] args) {
         Board board = new Board();
-        ChessGame chessGame = new ChessGame(board);
+        Color turn = Color.WHITE;
+        ChessGame chessGame = new ChessGame(board, turn);
 
         runProgram(board, chessGame);
     }
