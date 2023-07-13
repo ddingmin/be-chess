@@ -29,6 +29,15 @@ public class ChessGame {
         board.initializeEmpty();
     }
 
+    public boolean isFinished() {
+        return board.pieceCount(Piece.create(Type.KING, turn)) == 0;
+    }
+
+    public Color getWinner() {
+        changeTurn();
+        return turn;
+    }
+
     public void move(Position sourcePosition, Position targetPosition) {
         Piece sourcePiece = board.findPiece(sourcePosition);
 

@@ -74,6 +74,11 @@ public class Main {
             if (command.startsWith(MOVE)) {
                 view.printGameCommand();
                 move(board, chessGame, command);
+                if (chessGame.isFinished()) {
+                    view.printWinner(chessGame.getWinner());
+                    view.printGameEnd();
+                    isGaming = false;
+                }
             }
         }
     }

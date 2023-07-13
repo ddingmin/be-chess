@@ -1,6 +1,7 @@
 package softeer2nd.chess.view;
 
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.pieces.Color;
 
 public class View {
     private static View view = new View();
@@ -39,5 +40,9 @@ public class View {
 
     public void printGameEnd() {
         System.out.println("체스 게임을 종료합니다.");
+    }
+
+    public void printWinner(Color winner) {
+        System.out.println(winner + " 승리!");
     }
 }

@@ -107,13 +107,11 @@ class ChessGameTest {
         assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a6")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("a8")));
 
-
         assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a7")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("e8")));
 
         assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a8")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("c7")));
-
 
         assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("g2")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
