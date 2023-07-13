@@ -65,7 +65,7 @@ public class ChessGame {
                 if (isNeedlessPosition(sourcePosition, targetPosition, rank, file)) {
                     continue;
                 }
-                if (isExistPiece(rank, file)) {
+                if (isExistPiece(new Position(rank, file))) {
                     return true;
                 }
             }
@@ -78,8 +78,8 @@ public class ChessGame {
                 || rank == targetPosition.getRank() && file == targetPosition.getFile();
     }
 
-    private boolean isExistPiece(int rank, int file) {
-        return !board.findPiece(rank, file).getType().equals(Type.NO_PIECE);
+    private boolean isExistPiece(Position position) {
+        return !board.findPiece(position).getType().equals(Type.NO_PIECE);
     }
 
     private static boolean isMovingPiece(Piece sourcePiece) {

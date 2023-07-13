@@ -11,6 +11,14 @@ public class Position {
         this.rank = convertPositionToRank(position.charAt(1));
     }
 
+    public Position(int rank, int file) {
+        validateIndexBound(rank);
+        validateIndexBound(file);
+
+        this.file = file;
+        this.rank = rank;
+    }
+
     private void validatePosition(String position) {
         if (position.length() != 2) {
             throw new IllegalArgumentException("올바른 좌표 형태가 아닙니다.");
@@ -20,6 +28,12 @@ public class Position {
         }
         if (position.charAt(1) < '1' || position.charAt(1) > '8') {
             throw new IllegalArgumentException("올바른 rank가 아닙니다.");
+        }
+    }
+
+    private void validateIndexBound(int index) {
+        if (index < 0 || index > 7) {
+            throw new IllegalArgumentException("올바른 좌표값이 아닙니다.");
         }
     }
 
