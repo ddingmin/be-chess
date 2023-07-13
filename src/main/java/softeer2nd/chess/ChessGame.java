@@ -62,20 +62,17 @@ public class ChessGame {
 
         for (int file = smallFile; file < bigFile + 1; file++) {
             for (int rank = smallRank; rank < bigRank + 1; rank++) {
-                if (isNeedlessPosition(sourcePosition, targetPosition, rank, file)) {
+                Position currentPosition = new Position(rank, file);
+                if (sourcePosition.equals(currentPosition)
+                        && targetPosition.equals(currentPosition)) {
                     continue;
                 }
-                if (isExistPiece(new Position(rank, file))) {
+                if (isExistPiece(currentPosition)) {
                     return true;
                 }
             }
         }
         return false;
-    }
-
-    private static boolean isNeedlessPosition(Position sourcePosition, Position targetPosition, int rank, int file) {
-        return (rank == sourcePosition.getRank() && file == sourcePosition.getFile())
-                || rank == targetPosition.getRank() && file == targetPosition.getFile();
     }
 
     private boolean isExistPiece(Position position) {

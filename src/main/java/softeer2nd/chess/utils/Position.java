@@ -1,5 +1,7 @@
 package softeer2nd.chess.utils;
 
+import java.util.Objects;
+
 public class Position {
     private final int file;
     private final int rank;
@@ -51,5 +53,18 @@ public class Position {
 
     public int getRank() {
         return rank;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return file == position.file && rank == position.rank;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(file, rank);
     }
 }
