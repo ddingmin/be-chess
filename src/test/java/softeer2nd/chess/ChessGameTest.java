@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.board.Board;
+import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.position.Position;
 
@@ -18,11 +19,13 @@ import static softeer2nd.chess.pieces.Type.*;
 class ChessGameTest {
     private ChessGame chessGame;
     private Board board;
+    private Color turn;
 
     @BeforeEach
     void setUp() {
         board = new Board();
-        chessGame = new ChessGame(board);
+        turn = WHITE;
+        chessGame = new ChessGame(board, turn);
         chessGame.initialize();
     }
 
@@ -88,9 +91,13 @@ class ChessGameTest {
     @DisplayName("이동할 위치에 다른 색 기물이 존재하면 이동할 수 있다.")
     void movePositionExistDiffColor() {
         addPiece(new Position("e7"), create(KING, WHITE));
+
         assertDoesNotThrow(() -> movePiece(new Position("e7"), new Position("e8")));
+        movePiece(new Position("a7"), new Position("a6"));
         assertDoesNotThrow(() -> movePiece(new Position("e8"), new Position("d8")));
+        movePiece(new Position("a6"), new Position("a5"));
         assertDoesNotThrow(() -> movePiece(new Position("d8"), new Position("c8")));
+        movePiece(new Position("a5"), new Position("a4"));
         assertDoesNotThrow(() -> movePiece(new Position("c8"), new Position("c7")));
     }
 
@@ -98,18 +105,45 @@ class ChessGameTest {
     @DisplayName("지속적인 이동을 하는 기물들의 경로에 기물이 존재하면 에러가 발생한다.")
     void moveMovingPieceOnExistRoute() {
         assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a6")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a7")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a8")));
-
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("a8")));
+
+
+        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a7")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("e8")));
+
+        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a8")));
         assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("c7")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
 
 
         assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("g2")));
+        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
+
         assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("a6")));
+        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
+
         assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("e6")));
+        assertThrows(RuntimeException.class,() -> movePiece(new Position("c8"), new Position("a6")));
+    }
+
+    @Test
+    @DisplayName("각자 순서에 맞는 기물들을 움직인다.")
+    void turn() {
+        movePiece(new Position("f2"), new Position("f3"));
+        movePiece(new Position("e7"), new Position("e6"));
+
+        movePiece(new Position("c2"), new Position("c3"));
+        movePiece(new Position("d8"), new Position("h4"));
+    }
+
+    @Test
+    @DisplayName("순서가 틀린 기물들을 움직일 수 없다.")
+    void turnFail() {
+        assertThrows(RuntimeException.class, () -> movePiece(new Position("a7"), new Position("a6")));
+
+        movePiece(new Position("f2"), new Position("f3"));
+        movePiece(new Position("e7"), new Position("e6"));
+
+        assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("h4")));
     }
 
     private void addPiece(Position position, Piece piece) {
