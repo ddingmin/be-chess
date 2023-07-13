@@ -1,6 +1,6 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.board.Position;
+import softeer2nd.chess.utils.Position;
 
 public class Rook extends Piece{
     private Rook(Color color, Type type) {

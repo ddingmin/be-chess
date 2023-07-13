@@ -1,4 +1,4 @@
-package softeer2nd.chess.board;
+package softeer2nd.chess.utils;
 
 public class Position {
     private final int file;
