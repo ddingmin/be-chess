@@ -24,7 +24,7 @@ public abstract class Piece {
         }
     }
 
-    public static Piece createBlack(Type type) {
+    static Piece createBlack(Type type) {
         switch (type) {
             case KING:
                 return King.create(Color.BLACK);
@@ -43,7 +43,7 @@ public abstract class Piece {
         }
     }
 
-    public static Piece createWhite(Type type) {
+    static Piece createWhite(Type type) {
         switch (type) {
             case KING:
                 return King.create(Color.WHITE);

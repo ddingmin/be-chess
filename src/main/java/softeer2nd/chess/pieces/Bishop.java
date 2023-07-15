@@ -2,7 +2,7 @@ package softeer2nd.chess.pieces;
 
 import softeer2nd.chess.position.Position;
 
-public class Bishop extends Piece{
+public class Bishop extends Piece {
     private Bishop(Color color, Type type) {
         super(color, type);
     }

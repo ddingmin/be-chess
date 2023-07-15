@@ -2,7 +2,7 @@ package softeer2nd.chess.pieces;
 
 import softeer2nd.chess.position.Position;
 
-public class King extends Piece{
+public class King extends Piece {
     private King(Color color, Type type) {
         super(color, type);
     }
