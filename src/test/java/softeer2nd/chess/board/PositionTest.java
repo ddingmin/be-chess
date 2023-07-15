@@ -18,10 +18,12 @@ class PositionTest {
         String h8 = "h8";
 
         // then
-        assertDoesNotThrow(() -> create(a1));
-        assertDoesNotThrow(() -> create(a8));
-        assertDoesNotThrow(() -> create(h1));
-        assertDoesNotThrow(() -> create(h8));
+        assertAll(
+                () -> assertDoesNotThrow(() -> create(a1)),
+                () -> assertDoesNotThrow(() -> create(a8)),
+                () -> assertDoesNotThrow(() -> create(h1)),
+                () -> assertDoesNotThrow(() -> create(h8))
+        );
     }
 
     @Test
@@ -35,11 +37,13 @@ class PositionTest {
         String overString2 = "z2";
 
         // then
-        assertThrows(IllegalArgumentException.class, () -> create(reverseString));
-        assertThrows(IllegalArgumentException.class, () -> create(startString));
-        assertThrows(IllegalArgumentException.class, () -> create(nullString));
-        assertThrows(IllegalArgumentException.class, () -> create(overString1));
-        assertThrows(IllegalArgumentException.class, () -> create(overString2));
+        assertAll(
+                () -> assertThrows(IllegalArgumentException.class, () -> create(reverseString)),
+                () -> assertThrows(IllegalArgumentException.class, () -> create(startString)),
+                () -> assertThrows(IllegalArgumentException.class, () -> create(nullString)),
+                () -> assertThrows(IllegalArgumentException.class, () -> create(overString1)),
+                () -> assertThrows(IllegalArgumentException.class, () -> create(overString2))
+        );
     }
 
     private Position create(String string) {

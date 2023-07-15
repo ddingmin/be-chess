@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PawnTest {
     private Piece whitePawn;
     private Piece blackPawn;
+
     @BeforeEach
     void setUp() {
         whitePawn = Piece.create(Type.PAWN, Color.WHITE);
@@ -19,7 +20,7 @@ class PawnTest {
 
     @Test
     @DisplayName("White Pawn 기물의 이동을 검증한다.")
-    void verifyAllowWhite() throws Exception{
+    void verifyAllowWhite() throws Exception {
         Position startPosition = new Position("c3");
 
         Position northPosition = new Position("c4");
@@ -35,7 +36,7 @@ class PawnTest {
 
     @Test
     @DisplayName("Black Pawn 기물의 이동을 검증한다.")
-    void verifyAllowBlack() throws Exception{
+    void verifyAllowBlack() throws Exception {
         Position startPosition = new Position("c3");
 
         Position southPosition = new Position("c2");
@@ -51,7 +52,7 @@ class PawnTest {
 
     @Test
     @DisplayName("White Pawn 기물의 올바르지 않은 이동에는 예외가 발생한다.")
-    void verifyFailWhite() throws Exception{
+    void verifyFailWhite() throws Exception {
         Position startPosition = new Position("c3");
 
         Position impossiblePosition1 = new Position("c3");
@@ -69,7 +70,7 @@ class PawnTest {
 
     @Test
     @DisplayName("Black Pawn 기물의 올바르지 않은 이동에는 예외가 발생한다.")
-    void verifyFailBlack() throws Exception{
+    void verifyFailBlack() throws Exception {
         Position startPosition = new Position("c3");
 
         Position impossiblePosition1 = new Position("c3");

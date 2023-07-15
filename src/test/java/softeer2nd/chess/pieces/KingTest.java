@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("King 기물 테스트")
 class KingTest {
     private Piece king;
+
     @BeforeEach
     void setUp() {
         king = Piece.create(Type.KING, Color.WHITE);
@@ -17,7 +18,7 @@ class KingTest {
 
     @Test
     @DisplayName("King 기물의 이동을 검증한다.")
-    void verifyAllow() throws Exception{
+    void verifyAllow() throws Exception {
         Position startPosition = new Position("c3");
 
         Position northPosition = new Position("c4");
@@ -43,7 +44,7 @@ class KingTest {
 
     @Test
     @DisplayName("King 기물의 올바르지 않은 이동에는 예외가 발생한다.")
-    void verifyFail() throws Exception{
+    void verifyFail() throws Exception {
         Position startPosition = new Position("c3");
 
         Position impossiblePosition1 = new Position("c3");

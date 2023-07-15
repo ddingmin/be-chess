@@ -40,8 +40,10 @@ class ChessGameTest {
         movePiece(sourcePosition, targetPosition);
 
         // then
-        assertEquals(createBlank(), board.findPiece(sourcePosition));
-        assertEquals(Piece.create(PAWN, WHITE), board.findPiece(targetPosition));
+        assertAll(
+                () -> assertEquals(createBlank(), board.findPiece(sourcePosition)),
+                () -> assertEquals(Piece.create(PAWN, WHITE), board.findPiece(targetPosition))
+        );
     }
 
     @Test
@@ -61,8 +63,10 @@ class ChessGameTest {
         addPiece(new Position("e1"), create(ROOK, WHITE));
         addPiece(new Position("f1"), create(KING, WHITE));
 
-        assertEquals(15.0, chessGame.calculatePoint(BLACK), 0.01);
-        assertEquals(7.5, chessGame.calculatePoint(WHITE), 0.01);
+        assertAll(
+                () -> assertEquals(15.0, chessGame.calculatePoint(BLACK), 0.01),
+                () -> assertEquals(7.5, chessGame.calculatePoint(WHITE), 0.01)
+        );
     }
 
     @Test
@@ -83,8 +87,10 @@ class ChessGameTest {
         addPiece(new Position("c8"), create(ROOK, BLACK));
 
         // then
-        assertEquals(Arrays.asList(BISHOP, KING, QUEEN, ROOK, PAWN, KNIGHT), chessGame.sortAscByPiecePoint(WHITE));
-        assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), chessGame.sortDescByPiecePoint(BLACK));
+        assertAll(
+                () -> assertEquals(Arrays.asList(BISHOP, KING, QUEEN, ROOK, PAWN, KNIGHT), chessGame.sortAscByPiecePoint(WHITE)),
+                () -> assertEquals(Arrays.asList(QUEEN, ROOK, PAWN, KNIGHT, KING, BISHOP), chessGame.sortDescByPiecePoint(BLACK))
+        );
     }
 
     @Test
@@ -104,33 +110,32 @@ class ChessGameTest {
     @Test
     @DisplayName("지속적인 이동을 하는 기물들의 경로에 기물이 존재하면 에러가 발생한다.")
     void moveMovingPieceOnExistRoute() {
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a6")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("a8")));
 
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a7")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("e8")));
-
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("a1"), new Position("a8")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("c7")));
-
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("g2")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
-
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("a6")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("d8"), new Position("h4")));
-
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("f1"), new Position("e6")));
-        assertThrows(RuntimeException.class,() -> movePiece(new Position("c8"), new Position("a6")));
+        assertAll(
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("a1"), new Position("a6"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("a8"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("a1"), new Position("a7"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("e8"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("a1"), new Position("a8"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("c7"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("f1"), new Position("g2"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("h4"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("f1"), new Position("a6"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("d8"), new Position("h4"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("f1"), new Position("e6"))),
+                () -> assertThrows(RuntimeException.class, () -> movePiece(new Position("c8"), new Position("a6")))
+        );
     }
 
     @Test
     @DisplayName("각자 순서에 맞는 기물들을 움직인다.")
     void turn() {
-        movePiece(new Position("f2"), new Position("f3"));
-        movePiece(new Position("e7"), new Position("e6"));
-
-        movePiece(new Position("c2"), new Position("c3"));
-        movePiece(new Position("d8"), new Position("h4"));
+        assertAll(
+                () -> movePiece(new Position("f2"), new Position("f3")),
+                () -> movePiece(new Position("e7"), new Position("e6")),
+                () -> movePiece(new Position("c2"), new Position("c3")),
+                () -> movePiece(new Position("d8"), new Position("h4"))
+        );
     }
 
     @Test
