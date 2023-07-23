@@ -2,7 +2,8 @@ package softeer2nd;
 
 import softeer2nd.chess.ChessGame;
 import softeer2nd.chess.board.Board;
-import softeer2nd.chess.board.Position;
+import softeer2nd.chess.pieces.Color;
+import softeer2nd.chess.position.Position;
 import softeer2nd.chess.view.View;
 
 import java.util.Scanner;
@@ -10,13 +11,15 @@ import java.util.Scanner;
 public class Main {
     public static final String START = "start";
     public static final String END = "end";
+    private static final String SHOW = "show";
     public static final String MOVE = "move ";
     public static final View view = View.getView();
     public static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         Board board = new Board();
-        ChessGame chessGame = new ChessGame(board);
+        Color turn = Color.WHITE;
+        ChessGame chessGame = new ChessGame(board, turn);
 
         runProgram(board, chessGame);
     }
@@ -64,9 +67,18 @@ public class Main {
                 isGaming = false;
                 continue;
             }
+            if (command.equals(SHOW)) {
+                view.printBoard(board);
+                continue;
+            }
             if (command.startsWith(MOVE)) {
                 view.printGameCommand();
                 move(board, chessGame, command);
+                if (chessGame.isFinished()) {
+                    view.printWinner(chessGame.getWinner());
+                    view.printGameEnd();
+                    isGaming = false;
+                }
             }
         }
     }
@@ -90,7 +102,7 @@ public class Main {
     }
 
     private static boolean isCorrectGameCommand(String command) {
-        return command.equals(END) || command.startsWith(MOVE);
+        return command.equals(END) || command.startsWith(MOVE) || command.equals(SHOW);
     }
 
     private static boolean isCorrectMoveCommand(String[] commands) {

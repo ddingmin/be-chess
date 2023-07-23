@@ -13,7 +13,7 @@ public enum Type {
 
     private final double defaultPoint;
 
-    private Type(char representation, double defaultPoint) {
+    Type(char representation, double defaultPoint) {
         this.representation = representation;
         this.defaultPoint = defaultPoint;
     }

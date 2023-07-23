@@ -1,6 +1,6 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.board.Position;
+import softeer2nd.chess.position.Position;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public abstract class Piece {
         }
     }
 
-    public static Piece createBlack(Type type) {
+    static Piece createBlack(Type type) {
         switch (type) {
             case KING:
                 return King.create(Color.BLACK);
@@ -43,7 +43,7 @@ public abstract class Piece {
         }
     }
 
-    public static Piece createWhite(Type type) {
+    static Piece createWhite(Type type) {
         switch (type) {
             case KING:
                 return King.create(Color.WHITE);
@@ -93,6 +93,10 @@ public abstract class Piece {
         return color.equals(Color.BLACK);
     }
 
+    public boolean isBlank() {
+        return color.equals(Color.NOCOLOR);
+    }
+
     public abstract void verifyMovePosition(Position sourcePosition, Position targetPosition);
 
     protected boolean isExistCorrectRoute(Direction direction, int differenceRank, int differenceFile) {
@@ -107,6 +111,10 @@ public abstract class Piece {
 
     protected boolean isExistCorrectPoint(Direction direction, int differenceRank, int differenceFile) {
         return direction.getYDegree() == differenceRank && direction.getXDegree() == differenceFile;
+    }
+
+    public boolean isMovingPiece() {
+        return getType().equals(Type.QUEEN) || getType().equals(Type.ROOK) || getType().equals(Type.BISHOP);
     }
 
     @Override

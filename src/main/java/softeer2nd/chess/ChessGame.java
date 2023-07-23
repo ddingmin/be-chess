@@ -1,10 +1,10 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.board.Board;
-import softeer2nd.chess.board.Position;
 import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Type;
+import softeer2nd.chess.position.Position;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -14,9 +14,11 @@ public class ChessGame {
     public static final int MAX_POSITION = 8;
     public static final double PENALTY_PAWN_POINT = 0.5;
     private final Board board;
+    private Color turn;
 
-    public ChessGame(Board board) {
+    public ChessGame(Board board, Color turn) {
         this.board = board;
+        this.turn = turn;
     }
 
     public void initialize() {
@@ -27,6 +29,15 @@ public class ChessGame {
         board.initializeEmpty();
     }
 
+    public boolean isFinished() {
+        return board.pieceCount(Piece.create(Type.KING, turn)) == 0;
+    }
+
+    public Color getWinner() {
+        changeTurn();
+        return turn;
+    }
+
     public void move(Position sourcePosition, Position targetPosition) {
         Piece sourcePiece = board.findPiece(sourcePosition);
 
@@ -35,17 +46,29 @@ public class ChessGame {
 
         board.put(sourcePiece, targetPosition);
         board.put(Piece.createBlank(), sourcePosition);
+        changeTurn();
     }
 
     private void verifyMove(Position sourcePosition, Position targetPosition, Piece sourcePiece) {
-        if (isSameColor(sourcePosition, targetPosition)) {
-            throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
-        }
-        if (!isMovingPiece(sourcePiece)) {
+        verifyTurn(sourcePiece);
+        verifyExistSameColor(sourcePosition, targetPosition);
+
+        if (!sourcePiece.isMovingPiece()) {
             return;
         }
-        if (isExistPieceOnRoute(sourcePosition, targetPosition)) {
-            throw new RuntimeException("이동 경로에 기물이 존재해 이동할 수 없습니다.");
+        verifyExistPieceOnRoute(sourcePosition, targetPosition);
+    }
+
+    private void verifyTurn(Piece sourcePiece) {
+        if (turn.equals(sourcePiece.getColor())) {
+            return;
+        }
+        throw new RuntimeException("현재 " + turn.toString() + " 플레이어의 턴입니다.");
+    }
+
+    private void verifyExistSameColor(Position sourcePosition, Position targetPosition) {
+        if (isSameColor(sourcePosition, targetPosition)) {
+            throw new RuntimeException("이동할 위치에 같은 색 기물이 존재합니다.");
         }
     }
 
@@ -54,36 +77,32 @@ public class ChessGame {
                 .equals(board.findPiece(targetPosition).getColor());
     }
 
-    private boolean isExistPieceOnRoute(Position sourcePosition, Position targetPosition) {
-        int bigFile = Math.max(targetPosition.getFile(), sourcePosition.getFile());
-        int bigRank = Math.max(targetPosition.getRank(), sourcePosition.getRank());
-        int smallFile = Math.min(targetPosition.getFile(), sourcePosition.getFile());
-        int smallRank = Math.min(targetPosition.getRank(), sourcePosition.getRank());
+    private void verifyExistPieceOnRoute(Position sourcePosition, Position targetPosition) {
+        int directionRank = Integer.compare(targetPosition.getRank() - sourcePosition.getRank(), 0);
+        int directionFile = Integer.compare(targetPosition.getFile() - sourcePosition.getFile(), 0);
 
-        for (int file = smallFile; file < bigFile + 1; file++) {
-            for (int rank = smallRank; rank < bigRank + 1; rank++) {
-                if (isNeedlessPosition(sourcePosition, targetPosition, rank, file)) {
-                    continue;
-                }
-                if (isExistPiece(rank, file)) {
-                    return true;
-                }
-            }
+        verifyExistPiece(sourcePosition, targetPosition, directionRank, directionFile);
+    }
+
+    private void verifyExistPiece(Position position, Position targetPosition, int directionRank, int directionFile) {
+        Position nextPosition = new Position(position.getRank() + directionRank, position.getFile() + directionFile);
+
+        if (targetPosition.equals(nextPosition)) {
+            return;
         }
-        return false;
+
+        if (!board.findPiece(nextPosition).isBlank()) {
+            throw new RuntimeException("이동 경로에 기물이 존재합니다.");
+        }
+        verifyExistPiece(nextPosition, targetPosition, directionRank, directionFile);
     }
 
-    private static boolean isNeedlessPosition(Position sourcePosition, Position targetPosition, int rank, int file) {
-        return (rank == sourcePosition.getRank() && file == sourcePosition.getFile())
-                || rank == targetPosition.getRank() && file == targetPosition.getFile();
-    }
-
-    private boolean isExistPiece(int rank, int file) {
-        return !board.findPiece(rank, file).getType().equals(Type.NO_PIECE);
-    }
-
-    private static boolean isMovingPiece(Piece sourcePiece) {
-        return sourcePiece.getType().equals(Type.QUEEN) || sourcePiece.getType().equals(Type.ROOK) || sourcePiece.getType().equals(Type.BISHOP);
+    private void changeTurn() {
+        if (turn.equals(Color.WHITE)) {
+            turn = Color.BLACK;
+            return;
+        }
+        turn = Color.WHITE;
     }
 
     public List<Type> sortAscByPiecePoint(Color color) {

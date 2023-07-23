@@ -3,8 +3,7 @@ package softeer2nd.chess.pieces;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.chess.pieces.Color.*;
 import static softeer2nd.chess.pieces.Type.*;
 
@@ -15,7 +14,7 @@ class PieceTest {
     void createPiece() {
         verifyPiece(Piece.create(PAWN, BLACK), BLACK, PAWN.getBlackRepresentation());
         verifyPiece(Piece.create(PAWN, WHITE), WHITE, PAWN.getWhiteRepresentation());
-        verifyPiece(Piece.create(KING,WHITE), WHITE, KING.getWhiteRepresentation());
+        verifyPiece(Piece.create(KING, WHITE), WHITE, KING.getWhiteRepresentation());
         verifyPiece(Piece.create(QUEEN, WHITE), WHITE, QUEEN.getWhiteRepresentation());
         verifyPiece(Piece.create(BISHOP, WHITE), WHITE, BISHOP.getWhiteRepresentation());
         verifyPiece(Piece.create(ROOK, WHITE), WHITE, ROOK.getWhiteRepresentation());
@@ -31,8 +30,10 @@ class PieceTest {
     @Test
     @DisplayName("기물의 색에 따라 올바른 representation 을 반환해야 한다.")
     void getRepresentationPerPiece() throws Exception {
-        assertEquals('p', PAWN.getWhiteRepresentation());
-        assertEquals('P', PAWN.getBlackRepresentation());
+        assertAll(
+                () -> assertEquals('p', PAWN.getWhiteRepresentation()),
+                () -> assertEquals('P', PAWN.getBlackRepresentation())
+        );
     }
 
     @Test
@@ -41,12 +42,16 @@ class PieceTest {
         Piece whitePawn = Piece.create(PAWN, WHITE);
         Piece blackPawn = Piece.create(PAWN, BLACK);
 
-        assertTrue(whitePawn.isWhite());
-        assertTrue(blackPawn.isBlack());
+        assertAll(
+                () -> assertTrue(whitePawn.isWhite()),
+                () -> assertTrue(blackPawn.isBlack())
+        );
     }
 
     private void verifyPiece(final Piece piece, final Color color, final char representation) {
-        assertEquals(color, piece.getColor());
-        assertEquals(representation, piece.getRepresentation());
+        assertAll(
+                () -> assertEquals(color, piece.getColor()),
+                () -> assertEquals(representation, piece.getRepresentation())
+        );
     }
 }

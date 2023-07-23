@@ -1,8 +1,8 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.board.Position;
+import softeer2nd.chess.position.Position;
 
-public class Knight extends Piece{
+public class Knight extends Piece {
     private Knight(Color color, Type type) {
         super(color, type);
     }

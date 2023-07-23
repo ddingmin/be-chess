@@ -3,6 +3,7 @@ package softeer2nd.chess.board;
 import softeer2nd.chess.pieces.Color;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.Type;
+import softeer2nd.chess.position.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,11 +63,6 @@ public class Board {
     public Piece findPiece(Position position) {
         return ranks.get(position.getRank())
                 .getPiece(position.getFile());
-    }
-
-    public Piece findPiece(int rank, int file) {
-        return ranks.get(rank)
-                .getPiece(file);
     }
 
     public int pieceAllCount() {
